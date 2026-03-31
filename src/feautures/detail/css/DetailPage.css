@@ -1,0 +1,158 @@
+.detail-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.back-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted, #a0a0a0);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    color: #fff;
+    transform: translateX(-5px);
+}
+
+.detail-card {
+    background: rgba(30, 30, 30, 0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.anon-avatar {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #503952, #2c2c2c);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bc13fe;
+    font-size: 1.5rem;
+    box-shadow: 0 0 15px rgba(188, 19, 254, 0.2);
+}
+
+.user-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.username {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.time-ago {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.detail-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.detail-tag {
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(188, 19, 254, 0.1);
+    color: #bc13fe;
+}
+
+.view-count {
+    color: #555;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.detail-content p {
+    color: #e0e0e0;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+.detail-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 30px;
+}
+
+.reaction-group {
+    display: flex;
+    gap: 15px;
+}
+
+.react-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.react-btn.heart:hover {
+    background: rgba(255, 0, 127, 0.1);
+    color: #ff007f;
+    border-color: #ff007f;
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+}
+
+.react-btn.laugh:hover {
+    background: rgba(188, 19, 254, 0.1);
+    color: #bc13fe;
+    border-color: #bc13fe;
+    box-shadow: 0 0 15px rgba(188, 19, 254, 0.3);
+}
+
+.report-detail-btn {
+    background: transparent;
+    border: none;
+    color: #444;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.report-detail-btn:hover {
+    color: #ff4b2b;
+}

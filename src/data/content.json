@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "category": "İtiraf",
+    "text": "Üniversitede arkadaşımın bitirme projesini yanlışlıkla silmiştim, sonra ona 'bilgisayarın çökmüş galiba' dedim ve beraber baştan yaptık. Hala vicdan azabı çekiyorum ama o günden beri yedekleme uzmanı oldu.",
+    "views": 245,
+    "reactions": { "heart": 42, "laugh": 5, "fire": 12, "shock": 3, "sad": 8, "clap": 15 },
+    "createdAt": "2026-03-30T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "category": "Komik",
+    "text": "Dün gece uykumda İngilizce sunum yapmışım. Annem odaya girip 'ne diyorsun oğlum' deyince 'I have a dream' diye bağırmışım. Sabah hatırlatınca yerin dibine girdim.",
+    "views": 112,
+    "reactions": { "heart": 12, "laugh": 88, "fire": 45, "shock": 10, "sad": 2, "clap": 20 },
+    "createdAt": "2026-03-31T08:30:00Z"
+  },
+  {
+    "id": 3,
+    "category": "Pişmanlık",
+    "text": "Eski sevgilime sinirlenip en sevdiği oyun karakterinin tüm itemlarını satmıştım. Şimdi dönüp bakınca ne kadar çocukça olduğunu anlıyorum. Adamın 3 yıllık emeğiydi...",
+    "views": 560,
+    "reactions": { "heart": 5, "laugh": 2, "fire": 1, "shock": 40, "sad": 120, "clap": 0 },
+    "createdAt": "2026-03-29T15:45:00Z"
+  },
+  {
+    "id": 4,
+    "category": "Sır",
+    "text": "Şirketteki herkes patronun köpeğini benim gezdirdiğimi sanıyor ama aslında köpek kendi yolunu buluyor, ben sadece arkasından yürüp telefonla oynuyorum.",
+    "views": 89,
+    "reactions": { "heart": 15, "laugh": 30, "fire": 10, "shock": 5, "sad": 0, "clap": 8 },
+    "createdAt": "2026-03-31T11:20:00Z"
+  },
+  {
+    "id": 5,
+    "category": "İtiraf",
+    "text": "Küçükken ablamın günlüklerini okuyup içindeki sırları anneme 'rüyamda gördüm' diye anlatırdım. Annem de bana 'erenler mi geliyor sana evladım' diye dua ederdi.",
+    "views": 320,
+    "reactions": { "heart": 22, "laugh": 110, "fire": 50, "shock": 15, "sad": 5, "clap": 34 },
+    "createdAt": "2026-03-28T19:10:00Z"
+  },
+  {
+    "id": 6,
+    "category": "Pişmanlık",
+    "text": "Yazılım öğrenmeye başladığımda 'bu HTML çok zormuş' deyip bırakmıştım. 2 yıl boş gezdim. Keşke o gün devam etseydim, şu an senior olmuştum.",
+    "views": 780,
+    "reactions": { "heart": 140, "laugh": 10, "fire": 85, "shock": 5, "sad": 60, "clap": 200 },
+    "createdAt": "2026-03-25T09:00:00Z"
+  },
+  {
+    "id": 7,
+    "category": "Komik",
+    "text": "Markette maske takılıyken yanlışlıkla tanımadığım birine 'baba' diye seslendim. Adam dönüp bakınca durumu kurtarmak için 'baba fiyatlar ne olmuş böyle ya' deyip reyon değiştirdim.",
+    "views": 430,
+    "reactions": { "heart": 8, "laugh": 156, "fire": 30, "shock": 12, "sad": 1, "clap": 10 },
+    "createdAt": "2026-03-31T12:05:00Z"
+  },
+  {
+    "id": 8,
+    "category": "Sır",
+    "text": "Aslında evdeki o çok pahalı vazoyu ben kırmadım, kedi kırdı ama suç annemin üstüne kaldı çünkü o sırada temizlik yapıyordu. Kimseye söyleyemem.",
+    "views": 156,
+    "reactions": { "heart": 20, "laugh": 5, "fire": 2, "shock": 40, "sad": 10, "clap": 4 },
+    "createdAt": "2026-03-30T22:30:00Z"
+  },
+  {
+    "id": 9,
+    "category": "İtiraf",
+    "text": "İş görüşmesinde 'çok iyi Excel bilirim' dedim ama aslında sadece hücreleri boyamayı biliyorum. 3 aydır her şeyi YouTube'dan bakıp yapıyorum.",
+    "views": 920,
+    "reactions": { "heart": 65, "laugh": 200, "fire": 40, "shock": 25, "sad": 5, "clap": 130 },
+    "createdAt": "2026-03-27T14:20:00Z"
+  },
+  {
+    "id": 10,
+    "category": "Pişmanlık",
+    "text": "Lisedeki o sessiz çocuğa yaptığımız şakalar aklıma geldikçe kendimden nefret ediyorum. Umarım şu an çok mutlu bir hayatı vardır.",
+    "views": 1100,
+    "reactions": { "heart": 350, "laugh": 0, "fire": 0, "shock": 10, "sad": 450, "clap": 20 },
+    "createdAt": "2026-03-20T10:00:00Z"
+  },
+  {
+    "id": 11,
+    "category": "Sır",
+    "text": "Mahalledeki fırıncı her sabah bana bedava boyoz veriyor çünkü ona gizli bir hayranı olduğunu söyledim (hayranı falan yok, sadece boyoz seviyorum).",
+    "views": 210,
+    "reactions": { "heart": 12, "laugh": 75, "fire": 20, "shock": 30, "sad": 0, "clap": 15 },
+    "createdAt": "2026-03-31T07:15:00Z"
+  },
+  {
+    "id": 12,
+    "category": "Komik",
+    "text": "Spor salonuna yazıldım, 3 aydır gitmiyorum ama her ay parası tıkır tıkır yatıyor. Salon sahibi geçen gün arayıp 'abi öldün mü' diye sordu.",
+    "views": 340,
+    "reactions": { "heart": 10, "laugh": 95, "fire": 15, "shock": 40, "sad": 5, "clap": 2 },
+    "createdAt": "2026-03-28T16:40:00Z"
+  },
+  {
+    "id": 13,
+    "category": "İtiraf",
+    "text": "Sevgilim yemek yaparken 'harika olmuş' diyorum ama aslında her seferinde gizlice dışarıdan sipariş verip tabağa boşaltıyorum. Mutfakta bulaşık çıkarıp inandırıcı oluyorum.",
+    "views": 412,
+    "reactions": { "heart": 30, "laugh": 65, "fire": 12, "shock": 8, "sad": 0, "clap": 22 },
+    "createdAt": "2026-03-31T14:00:00Z"
+  },
+  {
+    "id": 14,
+    "category": "Sır",
+    "text": "Apartman grubundaki o kavgayı başlatan sahte profil benim. Sadece canım sıkılmıştı ve herkesin birbirine girmesini izlemek çok keyifliydi.",
+    "views": 890,
+    "reactions": { "heart": 5, "laugh": 150, "fire": 80, "shock": 200, "sad": 10, "clap": 50 },
+    "createdAt": "2026-03-31T15:30:00Z"
+  },
+  {
+    "id": 15,
+    "category": "Pişmanlık",
+    "text": "Çocukken bakkaldan gizlice aldığım o çikolatanın parasını hala ödemedim. Bakkal amca vefat etti, kime ödeyeceğimi de bilmiyorum. İçimde dert kaldı.",
+    "views": 320,
+    "reactions": { "heart": 100, "laugh": 0, "fire": 0, "shock": 5, "sad": 180, "clap": 10 },
+    "createdAt": "2026-03-22T12:00:00Z"
+  },
+  {
+    "id": 16,
+    "category": "Komik",
+    "text": "Yolda yürürken telefonla konuşuyormuş gibi yapıp kendi kendime tartıştım. Yanımdan geçen adam 'haklısın abi boşver' deyip omzuma dokundu. Telefon çalınca ikimiz de donduk.",
+    "views": 670,
+    "reactions": { "heart": 15, "laugh": 340, "fire": 45, "shock": 60, "sad": 2, "clap": 30 },
+    "createdAt": "2026-03-31T16:15:00Z"
+  },
+  {
+    "id": 17,
+    "category": "İtiraf",
+    "text": "Kardeşimin kumbarasından para alıp ona 'borç' verdiğim dönemler oldu. Geri ödeyince de 'faiz' diye dondurma ısmarlattım. Tam bir kapitalist canavarmışım.",
+    "views": 280,
+    "reactions": { "heart": 20, "laugh": 95, "fire": 30, "shock": 10, "sad": 5, "clap": 12 },
+    "createdAt": "2026-03-30T09:00:00Z"
+  },
+  {
+    "id": 18,
+    "category": "Sır",
+    "text": "Aslında o meşhur aile tarifindeki 'gizli malzeme' marketten alınan hazır sos. Herkes 'yine döktürmüşsün' diyor, ben sadece paketi açıyorum.",
+    "views": 445,
+    "reactions": { "heart": 35, "laugh": 70, "fire": 20, "shock": 15, "sad": 1, "clap": 55 },
+    "createdAt": "2026-03-31T17:00:00Z"
+  },
+  {
+    "id": 19,
+    "category": "Pişmanlık",
+    "text": "En yakın arkadaşımın sevdiği çocuğa gidip 'o senden nefret ediyor' demiştim. Sırf arkadaşım benden uzaklaşmasın diye yaptım ama ikisinin de hayatını mahvettim.",
+    "views": 1200,
+    "reactions": { "heart": 2, "laugh": 5, "fire": 0, "shock": 90, "sad": 500, "clap": 0 },
+    "createdAt": "2026-03-24T18:20:00Z"
+  },
+  {
+    "id": 20,
+    "category": "Komik",
+    "text": "Zoom toplantısında kamerasını açık unutan arkadaşıma 'arkandaki dev poster çok rüküş' diye mesaj attım. Meğer ekran paylaşıyormuş, tüm şirket mesajı okudu.",
+    "views": 1500,
+    "reactions": { "heart": 10, "laugh": 600, "fire": 120, "shock": 300, "sad": 5, "clap": 80 },
+    "createdAt": "2026-03-31T18:45:00Z"
+  }
+]

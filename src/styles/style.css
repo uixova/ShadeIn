@@ -14,22 +14,36 @@ body {
     padding: 28px;
 }
 
-*::-webkit-scrollbar {
-    width: 10px !important;
-    display: block !important;
+.home-wrapper {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-*::-webkit-scrollbar-track { background: #1a1a1a !important; }
-
-*::-webkit-scrollbar-thumb {
-    background: #2f0832 !important; 
-    border-radius: 20px !important;
-    border: 2px solid #1a1a1a !important;
+.glass-effect {
+    background: rgba(44, 44, 44, 0.3);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-*::-webkit-scrollbar-thumb:hover { background: #7a587d !important; }
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-* {
-    scrollbar-width: thin;
-    scrollbar-color: #2f0832 transparent;
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+    background: #503952;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #bc13fe;
 }
