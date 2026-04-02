@@ -1,13 +1,15 @@
 .navbar {
-    position: sticky;
-    top: 10px;
+    position: fixed; 
+    top: 15px; 
+    left: 50%;
+    transform: translateX(-50%);
     width: 90%;
     max-width: 800px;
     height: 64px;
-    margin: 10px auto;
-    margin-top: 10px;
-    background: #2c2c2c4d;
-    backdrop-filter: blur(15px); 
+    
+    z-index: 9999; 
+    background: rgba(44, 44, 44, 0.5); 
+    backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -17,7 +19,6 @@
     justify-content: space-between;
     padding: 0 20px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-    z-index: 100;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 

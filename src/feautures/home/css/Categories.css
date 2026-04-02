@@ -1,14 +1,16 @@
 .category-sidebar {
     width: 250px;
-    height: fit-content;
+    max-height: calc(100vh - 124px);
     background: rgba(44, 44, 44, 0.3);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 24px;
     padding: 24px;
-    position: sticky;
-    top: 100px;
+    position: fixed;
+    top: 104px;
+    left: max(40px, calc((100vw - 1200px) / 2 + 20px));
+    overflow-y: auto;
 }
 
 .sidebar-section h3 {
@@ -52,7 +54,7 @@
 .cat-item:hover {
     background: rgba(255, 255, 255, 0.03);
     color: #fff;
-    padding-left: 20px; /* Hafif bir kayma efekti */
+    padding-left: 20px; 
 }
 
 .cat-item.active {
@@ -65,7 +67,7 @@
 .cat-item.active .dot {
     background: #bc13fe;
     box-shadow: 0 0 10px #bc13fe;
-    width: 8px; /* Aktifken nokta biraz büyüsün */
+    width: 8px; 
 }
 
 .create-btn {
@@ -86,4 +88,14 @@
 .create-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 15px 30px rgba(188, 19, 254, 0.4);
+}
+
+@media (max-width: 1100px) {
+    .category-sidebar {
+        position: sticky;
+        left: auto;
+        top: 104px;
+        max-height: unset;
+        overflow-y: visible;
+    }
 }

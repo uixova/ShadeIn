@@ -1,4 +1,5 @@
 import contentData from '../data/content.json';
+import { normalizeConfessions, sortByPopularity } from '../utils/contentUtils';
 
 // Parametreleri buradan alıyoruz ki gereksiz veri trafiği olmasın
 export const fetchConfessionsApi = async (page = 1, limit = 10, category = 'Hepsi') => {
@@ -8,10 +9,13 @@ export const fetchConfessionsApi = async (page = 1, limit = 10, category = 'Heps
 
     return new Promise((resolve) => {
         setTimeout(() => {
+            const normalizedData = normalizeConfessions(contentData);
+            const popularData = sortByPopularity(normalizedData);
+
             // Önce kategoriye göre filtrele (Hepsi değilse)
-            let filtered = contentData;
+            let filtered = popularData;
             if (category !== 'Hepsi') {
-                filtered = contentData.filter(item => item.category === category);
+                filtered = popularData.filter(item => item.category === category);
             }
 
             // Sayfalama hesaplama

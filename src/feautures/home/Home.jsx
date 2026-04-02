@@ -5,42 +5,65 @@ import Sidebar from './components/Categories';
 import CreateConfession from './components/CreateConfession';
 import { useTime } from '../../hooks/useTime';
 import { usePagination } from '../../hooks/usePagination'; 
+import Report from '../../components/Common/Report';
 import './css/Home.css';
 
-// Zamanı formatlamak için küçük bir bileşen
+// TimeLabel: Tarih bilgisini daha okunabilir hale getirmek için özel bir bileşen.
 const TimeLabel = ({ date }) => {
   const time = useTime(date);
   return <span className="date">{time}</span>;
 };
 
 function Home() {
+  // useNavigate: Detay sayfasına yönlendirme için kullanıyoruz.
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('Hepsi');
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isReportOpen, setIsReportOpen] = useState(false);
+  const [reportingId, setReportingId] = useState(null);
 
-  const categories = ['Hepsi', 'İtiraf', 'Sır', 'Komik', 'Pişmanlık'];
+  // Kategoreler: 'Hepsi' seçeneği tüm kategorileri göstermek için var, modalda gösterilmeyecek.
+  const categories = ['Hepsi', 'İtiraf', 'Sır', 'Komik', 'Pişmanlık', 'Aşk', 'Kariyer', 'Okul', 'Eğlence', 'Aile'];
 
-  // TÜM SAYFALAMA MANTIĞI BURADA BİTTİ
+  // usePagination: Verileri sayfa sayfa çekmek ve yönetmek için özel bir hook.
   const { data: confessions, loading, loadMoreLoading, hasMore, next } = 
     usePagination(homeService.getConfessionsByPage, 10, selectedCategory);
 
+    // handleReportClick: Raporlama butonuna tıklandığında hangi içeriğin raporlandığını bilmek için ID'yi state'e atıyoruz.
+  const handleReportClick = (id) => {
+    setReportingId(id);    
+    setIsReportOpen(true); 
+  };
+
   return (
     <div className="home-wrapper">
-      <Sidebar 
-        categories={categories} 
-        selectedCategory={selectedCategory} 
-        onCategoryChange={setSelectedCategory} 
-        onCreateClick={() => setIsCreateModalOpen(true)}
-      />
+      <div className="sidebar-slot">
+        <Sidebar 
+          categories={categories} 
+          selectedCategory={selectedCategory} 
+          onCategoryChange={setSelectedCategory} 
+          onCreateClick={() => setIsCreateModalOpen(true)}
+        />
+      </div>
 
-      {/* Ana içerik alanı: İtiraf kartları ve yükleme durumları */}
       <main className="confession-feed">
         <div className="feed-header">
           <h2>{selectedCategory} Akışı</h2>
         </div>
         
-        {loading ? (
+        {loading && confessions.length === 0 ? (
           <div className="loader-container"><div className="neon-spinner"></div></div>
+        ) : confessions.length === 0 ? ( 
+          <div className="empty-state">
+            <div className="empty-icon">
+              <i className="ti ti-ghost"></i>
+            </div>
+            <h3>Sessizlik Hakim...</h3>
+            <p>Bu kategoride henüz kimse gölgelere fısıldamadı.</p>
+            <button className="be-first-btn" onClick={() => setIsCreateModalOpen(true)}>
+              İlk Sen Başlat!
+            </button>
+          </div>
         ) : (
           <>
             <div className="cards-container">
@@ -61,10 +84,13 @@ function Home() {
                     <button className="action-btn" onClick={(e) => e.stopPropagation()}>😢 {item.reactions.sad}</button>
                     <button className="action-btn" onClick={(e) => e.stopPropagation()}>👏 {item.reactions.clap}</button>
 
-                    <button className="report-btn" onClick={(e) => {
-                        e.stopPropagation();
-                        alert("İhbar edildi!");
-                    }}>
+                    <button 
+                      className="report-btn" 
+                      onClick={(e) => {
+                        e.stopPropagation(); 
+                        handleReportClick(item.id);
+                      }}
+                    >
                       <i className="ti ti-alert-circle"></i> Report
                     </button>
                   </div>
@@ -72,7 +98,6 @@ function Home() {
               ))}
             </div>
 
-              {/* Load More Butonu: Sadece daha fazla veri varsa ve şu anda yüklenmiyorsa göster */}
             {hasMore && (
               <div className="load-more-container">
                 <button className="load-more-btn" onClick={next} disabled={loadMoreLoading}>
@@ -84,7 +109,20 @@ function Home() {
         )}
       </main>
 
-      <CreateConfession isOpen={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} />
+      <CreateConfession 
+        isOpen={isCreateModalOpen} 
+        onClose={() => setIsCreateModalOpen(false)} 
+        categories={categories}
+      />
+
+      <Report 
+        isOpen={isReportOpen} 
+        onClose={() => {
+          setIsReportOpen(false);
+          setReportingId(null); 
+        }} 
+        contentId={reportingId}
+      />
     </div>
   );
 }

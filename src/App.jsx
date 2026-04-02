@@ -7,14 +7,17 @@ import Detail from './feautures/detail/Detail';
 
 function App() {
   return (
-    <div className="App" style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
+    <div className="App">
       <Navbar />
-      <div className="app-container">
+      <div className="navbar-mask" aria-hidden="true"></div>
+
+      <div className="content-container">
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />
           <Route path='/detail/:id' element={<Detail />} />
         </Routes>
+        <div style={{ height: '50px' }}></div>
       </div>
     </div>
   )

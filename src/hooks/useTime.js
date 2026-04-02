@@ -1,11 +1,33 @@
 import { useState, useEffect, useMemo } from 'react';
 
+const EXPIRY_PRESET_MS = {
+  '1h': 60 * 60 * 1000,
+  '6h': 6 * 60 * 60 * 1000,
+  '24h': 24 * 60 * 60 * 1000,
+  '7d': 7 * 24 * 60 * 60 * 1000
+};
+
+export const EXPIRY_OPTIONS = [
+  { value: '1h', label: '1 Saat Sonra' },
+  { value: '6h', label: '6 Saat Sonra' },
+  { value: '24h', label: '24 Saat Sonra' },
+  { value: '7d', label: '1 Hafta Sonra' }
+];
+
+export const getExpiryDateFromPreset = (preset, baseDate = new Date()) => {
+  const duration = EXPIRY_PRESET_MS[preset] || EXPIRY_PRESET_MS['24h'];
+  const baseTime = baseDate instanceof Date ? baseDate.getTime() : new Date(baseDate).getTime();
+
+  return new Date(baseTime + duration).toISOString();
+};
+
 const getFormattedTimeAgo = (dateString) => {
-    // Eğer dateString yoksa boş string döndürüyoruz
   if (!dateString) return '';
   const now = new Date();
   const past = new Date(dateString);
-  const diffInSeconds = Math.floor((now - past) / 1000);
+  let diffInSeconds = Math.floor((now - past) / 1000);
+  if (Number.isNaN(diffInSeconds)) return '';
+  if (diffInSeconds < 0) diffInSeconds = 0;
 
   // Zaman farkına göre uygun formatı döndürüyoruz
   if (diffInSeconds < 5) return 'Şimdi';
@@ -28,15 +50,13 @@ const getFormattedTimeAgo = (dateString) => {
 };
 
 export const useTime = (dateString) => {
-  // Tick state'ini tutuyoruz
   const [tick, setTick] = useState(0);
-    // dateString ve tick değiştiğinde timeAgo'yu yeniden hesaplıyoruz. Böylece hem component her render olduğunda güncel zamanı gösterebilecek, hem de her dakika otomatik olarak güncellenecek.
+
   const timeAgo = useMemo(() => {
-    tick; 
+    tick;
     return getFormattedTimeAgo(dateString);
   }, [dateString, tick]);
 
-  // Her dakika tick'i artırarak timeAgo'nun güncellenmesini sağlıyoruz
   useEffect(() => {
     const timer = setInterval(() => {
       setTick(prev => prev + 1);

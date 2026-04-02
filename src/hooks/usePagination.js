@@ -31,7 +31,7 @@ export const usePagination = (fetchService, limit = 10, category = 'Hepsi') => {
     useEffect(() => {
         setPage(1);
         loadData(1, true); 
-    }, [category, loadData]); // loadData artık güvenli bir bağımlılık
+    }, [category, loadData]); 
 
     // Sayfa Değişimi: Sadece sayfa 1'den büyükse (load more) çalışır.
     useEffect(() => {

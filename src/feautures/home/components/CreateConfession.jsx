@@ -1,55 +1,81 @@
 import React, { useState } from 'react';
 import '../css/CreateConfession.css';
+import { EXPIRY_OPTIONS, getExpiryDateFromPreset } from '../../../hooks/useTime';
 
-const CreateConfession = ({ isOpen, onClose }) => {
+const CreateConfession = ({ isOpen, onClose, categories }) => {
   const [text, setText] = useState('');
   const [category, setCategory] = useState('İtiraf');
+  const [expireTime, setExpireTime] = useState('24h'); // Varsayılan süre
 
-  if (!isOpen) return null; // Modal kapalıysa hiçbir şey render etme
+  if (!isOpen) return null;
+
+  const selectableCategories = categories.filter(c => c !== 'Hepsi');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Yeni İtiraf:", { text, category });
-    // Burada ileride backend'e istek atacağız
-    onClose(); // İşlem bitince kapat
+    const now = new Date();
+    const expiresAt = getExpiryDateFromPreset(expireTime, now);
+
+    console.log("Yeni İtiraf:", {
+      text,
+      category,
+      createdAt: now.toISOString(),
+      expiresAt
+    });
+    onClose();
   };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content shadow-neon" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>İçini Dök</h2>
+          <div className="header-text">
+            <h2>İçini Dök</h2>
+            <p className="subtitle">Sırların gölgelerde güvende...</p>
+          </div>
           <button className="close-x" onClick={onClose}>&times;</button>
         </div>
 
-        {/* İtiraf oluşturma formu */}
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Kategori Seç</label>
-            <select value={category} onChange={(e) => setCategory(e.target.value)}>
-              <option value="İtiraf">İtiraf</option>
-              <option value="Sır">Sır</option>
-              <option value="Komik">Komik</option>
-              <option value="Pişmanlık">Pişmanlık</option>
-            </select>
+          <div className="form-row">
+            <div className="form-group flex-1">
+              <label><i className="ti ti-category"></i> Kategori</label>
+              <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                {selectableCategories.map(cat => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group flex-1">
+              <label><i className="ti ti-clock"></i> Silinme Süresi</label>
+              <select value={expireTime} onChange={(e) => setExpireTime(e.target.value)}>
+                {EXPIRY_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
-            {/* İtiraf metni için textarea */}
           <div className="form-group">
-            <label>Neler Oluyor? (Anonim kalacaksın)</label>
-            <textarea 
-              placeholder="Anlat hadi, kimse kim olduğunu bilmeyecek..."
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              maxLength={500}
-              required
-            ></textarea>
-            <span className="char-count">{text.length}/500</span>
+            <label>Neler Fısıldayacaksın?</label>
+            <div className="textarea-wrapper">
+              <textarea 
+                placeholder="Kimse kim olduğunu bilmeyecek, sadece anlat..."
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                maxLength={500}
+                required
+              ></textarea>
+              <div className="textarea-footer">
+                 <span className="char-count">{text.length} / 500</span>
+              </div>
+            </div>
           </div>
 
-            {/* Gönder butonu */}
           <button type="submit" className="submit-confession-btn">
-            Gölgeye Gönder
+            <span>Aydınlığa Gönder</span>
+            <i className="ti ti-send"></i>
           </button>
         </form>
       </div>
