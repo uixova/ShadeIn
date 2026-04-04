@@ -1,4 +1,5 @@
 import contentData from '../data/content.json';
+import userData from '../data/user.json';
 import { normalizeConfessions, sortByPopularity } from '../utils/contentUtils';
 
 // Parametreleri buradan alıyoruz ki gereksiz veri trafiği olmasın
@@ -31,5 +32,21 @@ export const fetchConfessionsApi = async (page = 1, limit = 10, category = 'Heps
                 hasMore: endIndex < filtered.length
             });
         }, randomDelay);
+    });
+};
+
+export const fetchUserProfileApi = async () => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(userData);
+        }, 500); 
+    });
+};
+
+export const updateUserProfileApi = async (newInfo) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({ success: true, data: newInfo });
+        }, 800);
     });
 };

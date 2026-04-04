@@ -1,19 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import UserModal from '../Feed/UserModal'; 
 import '../css/Navbar.css';
 
 const Navbar = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <nav className="navbar">
-      <div className="logo">ShadeIn</div>
+      <div className="logo" onClick={() => window.location.href = '/'}>ShadeIn</div>
       
       <div className="search-bar">
         <i className="ti ti-search"></i>
-        <input type="text" placeholder="Ara..." />
+        <input type="text" placeholder="Gölge ara..." />
       </div>
 
-      <div className="button-area">
-        <button className="btn login-btn">Giriş</button>
-        <button className="btn signup-btn">Kaydol</button>
+      <div className="user-section">
+        {/* Sadece giriş yapmış kullanıcı görecek */}
+        <div 
+          className={`profile-circle ${isModalOpen ? 'active' : ''}`} 
+          onClick={() => setIsModalOpen(!isModalOpen)}
+        >
+          <i className="ti ti-user-bolt"></i>
+        </div>
+
+        {/* Dropdown Modal */}
+        {isModalOpen && <UserModal onClose={() => setIsModalOpen(false)} />}
       </div>
     </nav>
   );
