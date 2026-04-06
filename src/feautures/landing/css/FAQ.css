@@ -1,0 +1,76 @@
+.faq-section {
+    padding: 120px 8%;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.section-intro {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title {
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+.badge-small {
+    color: #bc13fe;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.faq-header {
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.faq-header i {
+    transition: 0.4s;
+    color: #bc13fe;
+}
+
+.faq-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-body-content {
+    padding: 0 30px 25px;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.faq-card.active {
+    background: rgba(188, 19, 254, 0.05);
+    border-color: #bc13fe;
+}
+
+.faq-card.active .faq-header i {
+    transform: rotate(180deg);
+}
+
+.faq-card.active .faq-body {
+    max-height: 300px;
+}

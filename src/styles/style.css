@@ -9,16 +9,69 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
-    background: radial-gradient(circle at top, #300882, #2f0832);
-    background-attachment: fixed;
+    width: 100%;
+    overflow: hidden; 
+    background: #0d0118; 
 }
 
 .App {
     height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     position: relative;
+    background: radial-gradient(circle at top, #300882, #0d0118);
+    background-attachment: fixed;
+}
+
+.content-container, 
+.landing-container {
+    flex: 1;
+    overflow-y: auto; 
+    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+    
+    scrollbar-width: thin;
+    scrollbar-color: rgba(188, 19, 254, 0.4) transparent;
+    scrollbar-gutter: stable;
+}
+
+.content-container {
+    margin-top: 96px;
+    padding: 0 20px;
+}
+
+.content-container::-webkit-scrollbar,
+.landing-container::-webkit-scrollbar {
+    width: 6px; 
+}
+
+.content-container::-webkit-scrollbar-track,
+.landing-container::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+.content-container::-webkit-scrollbar-thumb,
+.landing-container::-webkit-scrollbar-thumb {
+    background: rgba(188, 19, 254, 0.3); 
+    border-radius: 20px;
+    border: 1px solid transparent; 
+    background-clip: content-box;
+    transition: background 0.3s ease;
+}
+
+.content-container::-webkit-scrollbar-thumb:hover,
+.landing-container::-webkit-scrollbar-thumb:hover {
+    background: #bc13fe; 
+    box-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
+}
+
+.content-container::-webkit-scrollbar-button,
+.landing-container::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 .navbar-mask {
@@ -29,42 +82,6 @@ html, body {
     height: 94px;
     z-index: 9000;
     pointer-events: none;
-    background: radial-gradient(circle at top, #300882, #2f0832);
-    background-attachment: fixed;
-}
-
-.content-container {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin-top: 96px;
-    padding: 0 20px;
-    position: relative;
-    z-index: 1;
-    scrollbar-gutter: stable;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(188, 19, 254, 0.45) transparent;
-}
-
-.content-container::-webkit-scrollbar {
-    width: 6px;
-}
-
-.content-container::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.content-container::-webkit-scrollbar-thumb {
-    background: rgba(188, 19, 254, 0.3);
-    border-radius: 10px;
-}
-
-.content-container::-webkit-scrollbar-button {
-    display: none;
-    width: 0;
-    height: 0;
-}
-
-.content-container::-webkit-scrollbar-thumb:hover {
-    background: #bc13fe;
+    background: linear-gradient(to bottom, #300882 0%, rgba(13, 1, 24, 0.8) 100%);
+    backdrop-filter: blur(10px);
 }

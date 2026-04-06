@@ -3,33 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import { homeService } from './service/homeService'; 
 import Sidebar from './components/Categories';
 import CreateConfession from './components/CreateConfession';
+import Loader from '../../components/Common/Loader';
+import Loading from '../../components/Common/Loading'
 import { useTime } from '../../hooks/useTime';
 import { usePagination } from '../../hooks/usePagination'; 
 import Report from '../../components/Common/Report';
 import './css/Home.css';
 
-// TimeLabel: Tarih bilgisini daha okunabilir hale getirmek için özel bir bileşen.
 const TimeLabel = ({ date }) => {
   const time = useTime(date);
   return <span className="date">{time}</span>;
 };
 
 function Home() {
-  // useNavigate: Detay sayfasına yönlendirme için kullanıyoruz.
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('Hepsi');
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [reportingId, setReportingId] = useState(null);
 
-  // Kategoreler: 'Hepsi' seçeneği tüm kategorileri göstermek için var, modalda gösterilmeyecek.
   const categories = ['Hepsi', 'İtiraf', 'Sır', 'Komik', 'Pişmanlık', 'Aşk', 'Kariyer', 'Okul', 'Eğlence', 'Aile'];
 
-  // usePagination: Verileri sayfa sayfa çekmek ve yönetmek için özel bir hook.
+  // loading: Kategori değiştiğinde veya ilk yüklemede true olur.
   const { data: confessions, loading, loadMoreLoading, hasMore, next } = 
     usePagination(homeService.getConfessionsByPage, 10, selectedCategory);
 
-    // handleReportClick: Raporlama butonuna tıklandığında hangi içeriğin raporlandığını bilmek için ID'yi state'e atıyoruz.
   const handleReportClick = (id) => {
     setReportingId(id);    
     setIsReportOpen(true); 
@@ -43,6 +41,7 @@ function Home() {
           selectedCategory={selectedCategory} 
           onCategoryChange={setSelectedCategory} 
           onCreateClick={() => setIsCreateModalOpen(true)}
+          loading={loading} // Sidebar'a loading durumunu gönderdik (opsiyonel kullanım için)
         />
       </div>
 
@@ -51,15 +50,18 @@ function Home() {
           <h2>{selectedCategory} Akışı</h2>
         </div>
         
-        {loading && confessions.length === 0 ? (
-          <div className="loader-container"><div className="neon-spinner"></div></div>
+        {/* Değişiklik Burası: Kategori değiştiği an loader tetiklenir */}
+        {loading ? (
+          <div className="loader-container">
+            <Loader />
+          </div>
         ) : confessions.length === 0 ? ( 
           <div className="empty-state">
             <div className="empty-icon">
               <i className="ti ti-ghost"></i>
             </div>
             <h3>Sessizlik Hakim...</h3>
-            <p>Bu kategoride henüz kimse gölgelere fısıldamadı.</p>
+            <p>Bu kategoride henüz kimse paylaşım yapmadı.</p>
             <button className="be-first-btn" onClick={() => setIsCreateModalOpen(true)}>
               İlk Sen Başlat!
             </button>
@@ -100,8 +102,12 @@ function Home() {
 
             {hasMore && (
               <div className="load-more-container">
-                <button className="load-more-btn" onClick={next} disabled={loadMoreLoading}>
-                  {loadMoreLoading ? 'Yükleniyor...' : 'Daha Fazla Göster'}
+                <button 
+                  className="load-more-btn" 
+                  onClick={next} 
+                  disabled={loadMoreLoading}
+                >
+                  {loadMoreLoading ? <Loading size="small" /> : 'Daha Fazla Göster'}
                 </button>
               </div>
             )}

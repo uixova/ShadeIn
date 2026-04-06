@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "icon": "ti ti-mask",
+    "title": "Sıfır İz",
+    "desc": "Kayıt yok, profil yok. Sadece fısıltılar var. Kimliğin sistemin en karanlık köşesinde bile saklı kalır."
+  },
+  {
+    "id": 2,
+    "icon": "ti ti-hourglass-empty",
+    "title": "Kalıcılık Bir Hatadır",
+    "desc": "ShadeIn üzerinde hiçbir veri sonsuza dek kalmaz. Belirlediğin sürenin sonunda her şey toz olup uçar."
+  },
+  {
+    "id": 3,
+    "icon": "ti ti-trash-x",
+    "title": "Otomatik İmha",
+    "desc": "Veritabanımız bir depo değil, bir geçittir. Süresi dolan her itiraf geri döndürülemez şekilde sistemden silinir."
+  }
+]

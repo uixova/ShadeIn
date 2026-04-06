@@ -1,11 +1,11 @@
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext'; 
+import { AuthContext } from '../context/AuthContext';
 
 export const useAuth = () => {
-    const context = useContext(AuthContext); 
+    const context = useContext(AuthContext);
     
     if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
+        throw new Error('useAuth bir AuthProvider içerisinde kullanılmalıdır!');
     }
     
     return {
@@ -13,6 +13,6 @@ export const useAuth = () => {
         updateUserInfo: context.updateUserInfo,
         logout: context.logout,
         loading: context.loading,
-        isAuthenticated: !!context.user 
+        isAuthenticated: !!context.user // user null değilse true döner
     };
 };

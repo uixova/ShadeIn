@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "q": "ShadeIn gerçekten anonim mi?",
+    "a": "Kesinlikle. Veritabanımızda gerçek kimliğinle eşleşebilecek hiçbir meta veri (IP, cihaz ID vb.) barındırmıyoruz. Sisteme adım attığın an sadece bir 'Gölge'sin; iz bırakmaz, takip edilemezsin."
+  },
+  {
+    "id": 2,
+    "q": "İtiraflarım sistemde ne kadar süre kalıyor?",
+    "a": "ShadeIn'de kalıcılık yoktur. Paylaştığın her post, belirlediğin süre sonunda veya okunduktan sonra sistemden geri döndürülemez şekilde kazınır. Biz bir arşiv değil, anlık bir haykırma noktasıyız."
+  },
+  {
+    "id": 3,
+    "q": "Neden hesap oluşturmam gerekiyor?",
+    "a": "Hesap sistemi, anonimliği bozmak için değil, topluluk kalitesini ve senin gizliliğini korumak içindir. Bot saldırılarını engellemek, 'spam' tacizinin önüne geçmek ve sana özel 'Gölge Ayarları'nı güvenle yönetebilmen için bu eşiği kullanıyoruz."
+  },
+  {
+    "id": 4,
+    "q": "Verilerim gerçekten siliniyor mu?",
+    "a": "Evet. 'Otomatik İmha' protokolümüz çalıştığında, veri sadece arayüzden değil, veritabanı çekirdeğinden de silinir. Dijital ayak izi bırakmaman için sistemimiz sürekli bir temizlik döngüsü içerisindedir."
+  }
+]
