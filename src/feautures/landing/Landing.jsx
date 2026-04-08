@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchFaqsApi } from './services/landingServices';
 
-// Bileşenleri İçeri Alıyoruz
 import Hero from './components/Hero';
 import Features from './components/Features';
 import FAQ from './components/FAQ';
@@ -42,7 +41,7 @@ const Landing = () => {
         </div>
         <div className="landing-nav-actions">
           <Link to="/login" className="nav-link">Giriş Yap</Link>
-          <Link to="/signup" className="nav-btn-primary">Karanlığa Katıl</Link>
+          <Link to="/signup" className="nav-btn-primary">Kayıt Ol</Link>
         </div>
       </header>
 
@@ -53,7 +52,7 @@ const Landing = () => {
       </main>
 
       <footer className="landing-footer">
-        <p>&copy; 2026 ShadeIn. Gölgelerin fısıltı noktası.</p>
+        <p>&copy; 2026 ShadeIn. Anonim İçerik Topluluğu.</p>
       </footer>
     </div>
   );

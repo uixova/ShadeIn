@@ -1,0 +1,209 @@
+.auth-overlay {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: radial-gradient(circle at top right, #300882 0%, #0d0118 100%);
+    position: relative;
+}
+
+.back-to-home {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: 0.3s;
+    z-index: 100;
+}
+
+.back-to-home:hover {
+    color: #bc13fe;
+    transform: translateX(-5px);
+}
+
+.auth-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 40px;
+    padding: 60px; 
+    width: 100%;
+    max-width: 520px; 
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+    animation: fadeInAuth 0.5s ease-out;
+}
+
+.auth-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(188, 19, 254, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+@keyframes fadeInAuth {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 45px; 
+}
+
+.auth-header h2 {
+    font-size: 2.2rem;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    background: linear-gradient(to right, #fff, #bc13fe);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.auth-header p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.95rem;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px; 
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: 5px;
+}
+
+.input-group input {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 18px 24px; 
+    border-radius: 18px;
+    color: #fff;
+    font-size: 1.05rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-group input:focus {
+    background: rgba(188, 19, 254, 0.05);
+    border-color: #bc13fe;
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.15);
+    outline: none;
+}
+
+.auth-btn {
+    height: 60px;
+    background: #bc13fe;
+    color: #fff;
+    padding: 16px;
+    border: none;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(188, 19, 254, 0.4);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.auth-link {
+    color: #bc13fe;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.auth-success-state {
+    text-align: center;
+    padding: 20px 0;
+    animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: #bc13fe;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 0 15px rgba(188, 19, 254, 0.5));
+}
+
+.success-title {
+    color: #fff;
+    margin-bottom: 16px;
+}
+
+.success-text {
+    color: #808080;
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.success-loader {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin-top: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.success-loader::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: #bc13fe;
+    animation: progress 3.5s linear forwards;
+}
+
+@keyframes progress {
+    to { width: 100%; }
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 30px 20px;
+        border-radius: 24px;
+    }
+    .auth-header h2 {
+        font-size: 1.6rem;
+    }
+}

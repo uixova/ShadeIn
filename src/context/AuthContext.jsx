@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { fetchUserProfileApi, updateUserProfileApi } from '../api/api';
+// İlerde gerçek API'ye bağlayacağın yerler
+// import { loginApi, signupApi, fetchUserProfileApi } from '../api/api';
+
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
@@ -8,45 +10,74 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // Uygulama ilk açıldığında veya yenilendiğinde çalışır
     useEffect(() => {
         const initAuth = async () => {
             try {
-                // Simüle edilmiş 400-1000ms gecikme
-                // const data = await fetchUserProfileApi();
-                // setUser(data);
-                setUser(null); // Veri gelince kullanıcıyı sete çek
+                // Sayfa yenilendiğinde localStorage'da token varsa kullanıcıyı çek
+                // const token = localStorage.getItem('shade_token');
+                // if (token) {
+                //    const data = await fetchUserProfileApi();
+                //    setUser(data);
+                // }
+                setUser(null); 
             } catch (error) {
-                console.error("Kimlik doğrulama başarısız:", error);
+                console.error("Kimlik doğrulama hatası:", error);
                 setUser(null);
             } finally {
-                setLoading(false); // Her durumda loader'ı kapat
+                setLoading(false);
             }
         };
         initAuth();
     }, []);
 
-    // Kullanıcı bilgilerini güncelleme (Profil ayarları için)
-    const updateUserInfo = async (newData) => {
+    // GİRİŞ YAPMA
+    const login = async (credentials) => {
         try {
-            const response = await updateUserProfileApi(newData);
-            if (response.success) {
-                setUser(prev => ({ ...prev, ...newData }));
-                return { success: true };
-            }
+            // Şimdilik simüle ediyoruz, ilerde API'ye gidecek
+            // const response = await loginApi(credentials);
+            const mockUser = { id: 1, username: credentials.username || 'Golge_1', role: 'user' };
+            
+            setUser(mockUser);
+            // localStorage.setItem('shade_token', 'mock_token_123');
+            return { success: true };
         } catch (error) {
-            return { success: false, error };
+            return { success: false, message: "Giriş başarısız:", error  };
         }
     };
 
-    // Çıkış yapma fonksiyonu
+    // KAYIT OLMA
+    const signup = async (userData) => {
+        try {
+            // const response = await signupApi(userData);
+            const mockUser = { id: 2, username: userData.username, role: 'user' };
+            
+            setUser(mockUser);
+            return { success: true };
+        } catch (error) {
+            return { success: false, message: "Kayıt sırasında hata oluştu.", error};
+        }
+    };
+
     const logout = () => {
         setUser(null);
-        // İlerde buraya localStorage temizleme de gelecek
+        localStorage.removeItem('shade_token');
+    };
+
+    const updateUserInfo = async (newData) => {
+        setUser(prev => ({ ...prev, ...newData }));
+        return { success: true };
     };
 
     return (
-        <AuthContext.Provider value={{ user, updateUserInfo, logout, loading }}>
+        <AuthContext.Provider value={{ 
+            user, 
+            isAuthenticated: !!user, 
+            login, 
+            signup, 
+            logout, 
+            updateUserInfo, 
+            loading 
+        }}>
             {children}
         </AuthContext.Provider>
     );

@@ -9,18 +9,17 @@ import Navbar from './components/Layout/Navbar';
 import Home from './feautures/home/Home';
 import Detail from './feautures/detail/Detail';
 import Landing from './feautures/landing/Landing'; 
+import Auth from './feautures/auth/Auth'; // Yeni ekledik
 
 function App() {
   const { isAuthenticated, loading } = useAuth();
 
-  // Backend/JSON verisi çekilirken bekle
   if (loading) {
     return <Loader />;
   }
 
   return (
     <div className="App">
-      {/* Navbar sadece giriş yapmış kullanıcıya veya belirli sayfalarda gözüksün */}
       {isAuthenticated && (
         <>
           <Navbar />
@@ -28,15 +27,26 @@ function App() {
         </>
       )}
 
+      {/* isAuthenticated değilse 'landing-container' basılıyor, custom scrollbar orada çalışacak */}
       <div className={isAuthenticated ? "content-container" : "landing-container"}>
         <Routes>
-          {/* Herkese Açık / Vitrin Rotası */}
+          {/* Landing Sayfası */}
           <Route 
             path="/" 
             element={!isAuthenticated ? <Landing /> : <Navigate to="/home" />} 
           />
 
-          {/* Korumalı Rotalar (Sadece Auth ise) */}
+          {/* Auth Sayfaları (Login & Signup) */}
+          <Route 
+            path="/login" 
+            element={!isAuthenticated ? <Auth mode="login" /> : <Navigate to="/home" />} 
+          />
+          <Route 
+            path="/signup" 
+            element={!isAuthenticated ? <Auth mode="signup" /> : <Navigate to="/home" />} 
+          />
+
+          {/* Korumalı Rotalar */}
           <Route 
             path="/home" 
             element={isAuthenticated ? <Home /> : <Navigate to="/" />} 
@@ -47,7 +57,6 @@ function App() {
             element={isAuthenticated ? <Detail /> : <Navigate to="/" />} 
           />
 
-          {/* Bilinmeyen yolları ana sayfaya at */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         
