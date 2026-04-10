@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import Loader from './components/Common/Loader';
+import './styles/variable.css'
 import './styles/style.css'
 
 // Layout & Features
@@ -9,7 +10,7 @@ import Navbar from './components/Layout/Navbar';
 import Home from './feautures/home/Home';
 import Detail from './feautures/detail/Detail';
 import Landing from './feautures/landing/Landing'; 
-import Auth from './feautures/auth/Auth'; // Yeni ekledik
+import Auth from './feautures/auth/Auth'; 
 
 function App() {
   const { isAuthenticated, loading } = useAuth();
@@ -27,7 +28,7 @@ function App() {
         </>
       )}
 
-      {/* isAuthenticated değilse 'landing-container' basılıyor, custom scrollbar orada çalışacak */}
+      {/* isAuthenticated değilse 'landing-container' basılıyor */}
       <div className={isAuthenticated ? "content-container" : "landing-container"}>
         <Routes>
           {/* Landing Sayfası */}

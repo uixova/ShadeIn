@@ -8,11 +8,6 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="logo" onClick={() => window.location.href = '/'}>ShadeIn</div>
-      
-      <div className="search-bar">
-        <i className="ti ti-search"></i>
-        <input type="text" placeholder="Gölge ara..." />
-      </div>
 
       <div className="user-section">
         {/* Sadece giriş yapmış kullanıcı görecek */}

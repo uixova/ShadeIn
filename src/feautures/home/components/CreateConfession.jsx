@@ -5,7 +5,8 @@ import { EXPIRY_OPTIONS, getExpiryDateFromPreset } from '../../../hooks/useTime'
 const CreateConfession = ({ isOpen, onClose, categories }) => {
   const [text, setText] = useState('');
   const [category, setCategory] = useState('İtiraf');
-  const [expireTime, setExpireTime] = useState('24h'); // Varsayılan süre
+  const [expireTime, setExpireTime] = useState('24h');
+  const [activeDropdown, setActiveDropdown] = useState(null); 
 
   if (!isOpen) return null;
 
@@ -13,21 +14,14 @@ const CreateConfession = ({ isOpen, onClose, categories }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const now = new Date();
-    const expiresAt = getExpiryDateFromPreset(expireTime, now);
-
-    console.log("Yeni İtiraf:", {
-      text,
-      category,
-      createdAt: now.toISOString(),
-      expiresAt
-    });
+    const expiresAt = getExpiryDateFromPreset(expireTime, new Date());
+    console.log("Send:", { text, category, expiresAt });
     onClose();
   };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content shadow-neon" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div className="header-text">
             <h2>İçini Dök</h2>
@@ -38,22 +32,34 @@ const CreateConfession = ({ isOpen, onClose, categories }) => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-row">
+            {/* Kategori Dropdown */}
             <div className="form-group flex-1">
               <label><i className="ti ti-category"></i> Kategori</label>
-              <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                {selectableCategories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
+              <div className={`custom-select ${activeDropdown === 'cat' ? 'active' : ''}`} 
+                   onClick={() => setActiveDropdown(activeDropdown === 'cat' ? null : 'cat')}>
+                <div className="select-trigger">{category}</div>
+                <div className="options-wrapper">
+                  {selectableCategories.map(cat => (
+                    <div key={cat} className="custom-option" onClick={() => setCategory(cat)}>{cat}</div>
+                  ))}
+                </div>
+              </div>
             </div>
 
+            {/* Süre Dropdown */}
             <div className="form-group flex-1">
               <label><i className="ti ti-clock"></i> Silinme Süresi</label>
-              <select value={expireTime} onChange={(e) => setExpireTime(e.target.value)}>
-                {EXPIRY_OPTIONS.map((option) => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))}
-              </select>
+              <div className={`custom-select ${activeDropdown === 'time' ? 'active' : ''}`}
+                   onClick={() => setActiveDropdown(activeDropdown === 'time' ? null : 'time')}>
+                <div className="select-trigger">
+                  {EXPIRY_OPTIONS.find(o => o.value === expireTime)?.label}
+                </div>
+                <div className="options-wrapper">
+                  {EXPIRY_OPTIONS.map((opt) => (
+                    <div key={opt.value} className="custom-option" onClick={() => setExpireTime(opt.value)}>{opt.label}</div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -61,7 +67,7 @@ const CreateConfession = ({ isOpen, onClose, categories }) => {
             <label>Neler Fısıldayacaksın?</label>
             <div className="textarea-wrapper">
               <textarea 
-                placeholder="Kimse kim olduğunu bilmeyecek, sadece anlat..."
+                placeholder="Kimse kim olduğunu bilmeyecek..."
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 maxLength={500}

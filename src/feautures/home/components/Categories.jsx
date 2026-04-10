@@ -22,7 +22,7 @@ const Sidebar = ({ categories, selectedCategory, onCategoryChange, onCreateClick
 
       <div className="sidebar-section">
         <button className="create-btn" onClick={onCreateClick}>
-          İçini Dök +
+          İçini Dök <i className="ti ti-lock-share"></i>
         </button>
       </div>
     </aside>

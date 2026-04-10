@@ -4,23 +4,24 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--bg-nav); 
     backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2000;
+    z-index: var(--z-modal);
     animation: reportFade 0.2s ease;
 }
 
 .report-modal {
-    background: #111;
+    background: var(--bg-modal);
     width: 90%;
     max-width: 450px;
-    border-radius: 24px;
+    border-radius: var(--radius-main);
     padding: 30px;
-    border: 1px solid rgba(255, 71, 87, 0.2);
+    border: 1px solid var(--danger-soft);
     position: relative;
+    box-shadow: var(--shadow-main);
 }
 
 .report-header {
@@ -34,14 +35,14 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    color: #ff4757;
+    color: var(--danger);
 }
 
 .title-area i { font-size: 1.5rem; }
-.title-area h2 { font-size: 1.4rem; color: #fff; margin: 0; }
+.title-area h2 { font-size: 1.4rem; color: var(--text-white); margin: 0; }
 
 .report-info {
-    color: #666;
+    color: var(--text-muted);
     font-size: 0.9rem;
     line-height: 1.5;
     margin-bottom: 25px;
@@ -55,24 +56,24 @@
 }
 
 .report-group label {
-    color: #999;
+    color: var(--text-dim);
     font-size: 0.85rem;
     font-weight: 600;
 }
 
 .report-group select, .report-group textarea {
-    background: #1a1a1a;
-    border: 1px solid #333;
+    background: var(--bg-input);
+    border: 1px solid var(--border-strong);
     border-radius: 12px;
     padding: 12px;
-    color: #fff;
+    color: var(--text-white);
     outline: none;
     transition: 0.3s;
 }
 
 .report-group select:focus, .report-group textarea:focus {
-    border-color: #ff4757;
-    box-shadow: 0 0 10px rgba(255, 71, 87, 0.1);
+    border-color: var(--danger);
+    box-shadow: 0 0 10px var(--danger-soft);
 }
 
 .report-group textarea {
@@ -90,9 +91,9 @@
     flex: 1;
     padding: 14px;
     border-radius: 12px;
-    border: 1px solid #333;
+    border: 1px solid var(--border-strong);
     background: transparent;
-    color: #888;
+    color: var(--text-dim);
     cursor: pointer;
     transition: 0.3s;
 }
@@ -102,16 +103,16 @@
     padding: 14px;
     border-radius: 12px;
     border: none;
-    background: #ff4757;
-    color: #fff;
+    background: var(--danger);
+    color: var(--text-white);
     font-weight: 700;
     cursor: pointer;
     transition: 0.3s;
 }
 
 .btn-send-report:hover {
-    background: #ff2e44;
-    box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+    filter: brightness(1.1);
+    box-shadow: 0 5px 15px var(--danger-soft);
 }
 
 .btn-send-report:disabled {
@@ -122,12 +123,84 @@
 .close-report {
     background: transparent;
     border: none;
-    color: #444;
+    color: var(--text-low);
     font-size: 1.8rem;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-report:hover {
+    color: var(--danger);
 }
 
 @keyframes reportFade {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .report-modal {
+        width: 95%;
+        padding: 25px 20px;
+        border-radius: 24px;
+    }
+
+    .title-area h2 {
+        font-size: 1.2rem;
+    }
+
+    .report-info {
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+    }
+
+    .report-group select, .report-group textarea {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .report-actions {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    .btn-cancel, .btn-send-report {
+        width: 100%;
+        flex: none;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .report-overlay {
+        align-items: flex-end;
+    }
+
+    .report-modal {
+        width: 100%;
+        max-width: none;
+        border-radius: 30px 30px 0 0;
+        padding-bottom: 40px;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+    }
+
+    .title-area i {
+        font-size: 1.2rem;
+    }
+
+    .report-group label {
+        font-size: 0.8rem;
+    }
+
+    .report-group textarea {
+        height: 80px;
+    }
 }

@@ -1,0 +1,44 @@
+:root {
+    --primary: #bc13fe; 
+    --primary-alt: #7b2ffb;  
+    --secondary: #ffffff;  
+    --accent-cyan: #00f2ff;  
+    --danger: #ff4757;  
+    
+    --bg-dark: #0d0118; 
+    --bg-dark-alt: #300882; 
+    --bg-nav: rgba(44, 44, 44, 0.5);
+    --bg-card: rgba(255, 255, 255, 0.02);
+    --bg-sidebar: rgba(44, 44, 44, 0.3);
+    --bg-modal: rgba(25, 25, 25, 0.98);
+    --bg-badge: rgba(188, 19, 254, 0.1);
+    
+    --text-white: #ffffff;
+    --text-main: #ececec;
+    --text-dim: rgba(255, 255, 255, 0.7); 
+    --text-muted: rgba(255, 255, 255, 0.6);
+    --text-low: rgba(255, 255, 255, 0.3);
+    --text-dark: #0d0118;
+
+    --border-soft: rgba(255, 255, 255, 0.05);
+    --border-strong: rgba(255, 255, 255, 0.1);
+    --border-primary: rgba(188, 19, 254, 0.3);
+    
+    --shadow-primary: 0 15px 35px rgba(188, 19, 254, 0.3);
+    --shadow-white: 0 0 25px rgba(255, 255, 255, 0.2);
+    --shadow-neon: 0 0 20px rgba(188, 19, 254, 0.4);
+    --blur-main: blur(20px);
+    --blur-orb: blur(100px);
+    
+    --grad-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+    --grad-hero-text: linear-gradient(90deg, var(--primary), var(--primary-alt));
+    --grad-landing: radial-gradient(circle at 50% -20%, var(--bg-dark-alt) 0%, var(--bg-dark) 80%);
+    --grad-auth: radial-gradient(circle at top right, var(--bg-dark-alt) 0%, var(--bg-dark) 100%);
+
+    --header-height: 90px;
+    --z-sticky: 100;
+    --z-modal: 10001;
+    --radius-btn: 16px;
+    --radius-card: 28px;
+    --radius-full: 100px;
+}

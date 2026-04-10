@@ -17,7 +17,7 @@
 }
 
 .feed-header h2 {
-    color: #fff;
+    color: var(--text-white);
     margin-bottom: 25px;
     font-weight: 500;
 }
@@ -35,8 +35,8 @@
 }
 
 .confession-card {
-    background: rgba(30, 30, 30, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
     border-radius: 20px;
     padding: 24px;
     cursor: pointer;
@@ -44,32 +44,33 @@
 }
 
 .confession-card:hover {
-    border-color: rgba(255, 0, 127, 0.3); 
+    border-color: var(--border-primary);
     transform: translateY(-4px);
-    background: rgba(40, 40, 40, 0.5);
+    background: rgba(255, 255, 255, 0.04);
 }
 
 .tag {
     font-size: 0.7rem;
     padding: 4px 10px;
     border-radius: 8px;
-    background: rgba(188, 19, 254, 0.1);
-    color: #bc13fe;
+    background: var(--bg-badge);
+    color: var(--primary);
     text-transform: uppercase;
+    font-weight: 600;
 }
 
 .date {
     font-size: 0.75rem;
-    color: #777;
+    color: var(--text-low);
 }
 
 .card-content {
-    color: #e0e0e0;
+    color: var(--text-main);
     line-height: 1.6;
     margin: 15px 0 20px;
     display: -webkit-box;
     line-clamp: 4;
-    -webkit-line-clamp: 4; 
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -78,29 +79,32 @@
 .card-footer {
     display: flex;
     gap: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--border-soft);
     padding-top: 15px;
 }
 
 .action-btn {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--border-soft);
     padding: 6px 12px;
-    border-radius: 20px;
+    border-radius: var(--radius-full);
     border: none;
-    color: #777;
+    color: var(--text-muted);
     cursor: pointer;
     display: flex;
     gap: 6px;
     transition: 0.2s;
 }
 
-.action-btn:hover { color: #ff007f; }
+.action-btn:hover {
+    color: var(--secondary);
+    background: rgba(255, 0, 127, 0.1);
+}
 
 .report-btn {
-    margin-left: auto; 
+    margin-left: auto;
     background: transparent;
     border: none;
-    color: #444;
+    color: var(--text-low);
     cursor: pointer;
     font-size: 0.8rem;
     transition: 0.3s;
@@ -110,7 +114,7 @@
 }
 
 .report-btn:hover {
-    color: #ff4b2b;
+    color: var(--danger);
 }
 
 .load-more-container {
@@ -120,19 +124,19 @@
 }
 
 .load-more-btn {
-    background: rgba(188, 19, 254, 0.05);
-    border: 1px solid rgba(188, 19, 254, 0.3);
-    color: #bc13fe;
+    background: var(--bg-badge);
+    border: 1px solid var(--border-primary);
+    color: var(--primary);
     padding: 12px 35px;
-    border-radius: 12px;
+    border-radius: var(--radius-btn);
     cursor: pointer;
     font-weight: 600;
     transition: 0.3s all;
 }
 
 .load-more-btn:hover:not(:disabled) {
-    background: rgba(188, 19, 254, 0.15);
-    box-shadow: 0 0 20px rgba(188, 19, 254, 0.2);
+    background: rgba(188, 19, 254, 0.2);
+    box-shadow: var(--shadow-neon);
     transform: translateY(-2px);
 }
 
@@ -148,42 +152,132 @@
     justify-content: center;
     padding: 80px 20px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 30px;
-    border: 2px dashed rgba(255, 255, 255, 0.05);
+    background: var(--bg-card);
+    border-radius: var(--radius-card);
+    border: 2px dashed var(--border-strong);
     margin-top: 20px;
 }
 
 .empty-icon {
     font-size: 4rem;
-    color: rgba(255, 255, 255, 0.1);
+    color: var(--text-low);
     margin-bottom: 20px;
 }
 
 .empty-state h3 {
-    color: #fff;
+    color: var(--text-white);
     font-size: 1.5rem;
     margin-bottom: 10px;
     letter-spacing: 1px;
 }
 
 .empty-state p {
-    color: #a0a0a0;
+    color: var(--text-muted);
     margin-bottom: 30px;
 }
 
 .be-first-btn {
     padding: 12px 24px;
-    border-radius: 12px;
-    border: 1px solid #bc13fe;
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--primary);
     background: transparent;
-    color: #bc13fe;
+    color: var(--primary);
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s ease;
 }
 
 .be-first-btn:hover {
-    background: rgba(188, 19, 254, 0.1);
-    box-shadow: 0 0 20px rgba(188, 19, 254, 0.2);
+    background: var(--bg-badge);
+    box-shadow: var(--shadow-neon);
+}
+
+@media (max-width: 1100px) {
+    .home-wrapper {
+        flex-direction: column;
+        padding: 10px 15px;
+    }
+
+    .sidebar-slot {
+        width: 100%;
+        flex: none;
+    }
+
+    .confession-feed {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-wrapper {
+        gap: 20px;
+    }
+
+    .feed-header h2 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+
+    .confession-card {
+        padding: 18px;
+        border-radius: 16px;
+    }
+
+    .card-content {
+        font-size: 0.95rem;
+        margin: 12px 0 15px;
+        line-clamp: 5;
+        -webkit-line-clamp: 5;
+    }
+
+    .action-btn {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+
+    .load-more-btn {
+        width: 100%;
+        padding: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-wrapper {
+        padding: 5px 12px;
+    }
+
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .date {
+        font-size: 0.7rem;
+    }
+
+    .card-footer {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .report-btn {
+        width: 100%;
+        margin-left: 0;
+        padding-top: 5px;
+        border-top: 1px solid rgba(255, 255, 255, 0.03);
+        justify-content: center;
+    }
+
+    .empty-state {
+        padding: 40px 15px;
+    }
+
+    .empty-icon {
+        font-size: 3rem;
+    }
+
+    .empty-state h3 {
+        font-size: 1.2rem;
+    }
 }

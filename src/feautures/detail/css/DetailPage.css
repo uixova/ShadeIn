@@ -10,7 +10,7 @@
     right: -10%;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(188, 19, 254, 0.08) 0%, transparent 70%);
+    background: var(--grad-glow);
     z-index: -1;
     pointer-events: none;
 }
@@ -24,11 +24,11 @@
 }
 
 .content-side {
-    flex: 2; 
+    flex: 2;
 }
 
 .related-side {
-    flex: 1; 
+    flex: 1;
     position: sticky;
     margin-top: 85px;
 }
@@ -47,41 +47,41 @@
 .back-icon {
     width: 35px;
     height: 35px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--text-white);
     transition: all 0.3s ease;
 }
 
 .back-link-modern span {
-    color: #888;
+    color: var(--text-muted);
     font-weight: 500;
     font-size: 0.95rem;
     transition: 0.3s;
 }
 
 .back-link-modern:hover .back-icon {
-    background: #bc13fe;
-    border-color: #bc13fe;
-    box-shadow: 0 0 15px rgba(188, 19, 254, 0.4);
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-neon);
     transform: translateX(-3px);
 }
 
 .back-link-modern:hover span {
-    color: #fff;
+    color: var(--text-white);
 }
 
 .main-confession-card {
-    background: rgba(20, 20, 20, 0.6);
+    background: var(--bg-card);
     backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-soft);
     border-radius: 32px;
     padding: 50px;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+    box-shadow: var(--shadow-main);
 }
 
 .author-box {
@@ -101,15 +101,15 @@
 .avatar-neon {
     width: 55px;
     height: 55px;
-    background: #1a1a1a;
-    border: 1px solid rgba(188, 19, 254, 0.3);
+    background: var(--bg-dark);
+    border: 1px solid var(--border-primary);
     border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #bc13fe;
+    color: var(--primary);
     font-size: 1.6rem;
-    box-shadow: 0 0 20px rgba(188, 19, 254, 0.1);
+    box-shadow: var(--shadow-neon);
 }
 
 .tag-box-detail {
@@ -118,21 +118,41 @@
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.5px;
-    background: rgba(188, 19, 254, 0.1);
-    border: 1px solid rgba(188, 19, 254, 0.2);
-    color: #bc13fe;
-    box-shadow: 0 0 20px rgba(188, 19, 254, 0.05);
+    background: var(--bg-badge);
+    border: 1px solid var(--border-primary);
+    color: var(--primary);
 }
 
-.tag-box-detail.itiraf { color: #bc13fe; border-color: rgba(188, 19, 254, 0.3); }
-.tag-box-detail.komik { color: #00f2ff; border-color: rgba(0, 242, 255, 0.3); background: rgba(0, 242, 255, 0.05); }
-.tag-box-detail.aşk { color: #ff007f; border-color: rgba(255, 0, 127, 0.3); background: rgba(255, 0, 127, 0.05); }
+.tag-box-detail.itiraf {
+    color: var(--primary);
+    border-color: var(--border-primary);
+}
 
-.meta h3 { color: #fff; font-size: 1.2rem; margin-bottom: 4px; }
-.meta .time { color: #555; font-size: 0.85rem; }
+.tag-box-detail.komik {
+    color: var(--accent-cyan);
+    border-color: rgba(0, 242, 255, 0.3);
+    background: rgba(0, 242, 255, 0.05);
+}
+
+.tag-box-detail.aşk {
+    color: var(--secondary);
+    border-color: rgba(255, 0, 127, 0.3);
+    background: rgba(255, 0, 127, 0.05);
+}
+
+.meta h3 {
+    color: var(--text-white);
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.meta .time {
+    color: #989898;
+    font-size: 0.85rem;
+}
 
 .confession-body p {
-    color: #ececec;
+    color: var(--text-main);
     font-size: 1.4rem;
     line-height: 1.9;
     margin: 40px 0;
@@ -143,14 +163,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    border-top: 1px solid var(--border-soft);
     padding-top: 30px;
 }
 
 .btn-react {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    color: #ccc;
+    background: var(--bg-input);
+    border: 1px solid var(--border-soft);
+    color: var(--text-dim);
     padding: 10px 18px;
     border-radius: 14px;
     margin-right: 10px;
@@ -159,38 +179,77 @@
 }
 
 .btn-react:hover {
-    background: rgba(188, 19, 254, 0.1);
-    border-color: #bc13fe;
-    color: #fff;
+    background: var(--bg-badge);
+    border-color: var(--primary);
+    color: var(--text-white);
 }
 
-.footer-right { display: flex; align-items: center; gap: 20px; }
-.views { color: #444; font-size: 0.9rem; }
-.btn-report { background: transparent; border: none; color: #333; cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
-.btn-report:hover { color: #ff4757; }
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: var(--text-white)
+}
+
+.views {
+    font-size: 0.9rem;
+}
+
+.btn-report {
+    background: transparent;
+    border: none;
+    color: var(--text-white);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.btn-report:hover {
+    color: var(--danger);
+}
 
 .sidebar-widget {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
     border-radius: 24px;
     padding: 24px;
     margin-bottom: 20px;
 }
 
-.sidebar-widget h4 { color: #bc13fe; margin-bottom: 20px; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+.sidebar-widget h4 {
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
 .related-item {
     padding: 15px;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--bg-card);
     margin-bottom: 12px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-.related-item:hover { background: rgba(255, 255, 255, 0.05); transform: translateY(-3px); }
-.related-item p { color: #aaa; font-size: 0.9rem; line-height: 1.4; margin-bottom: 8px; }
-.related-tag { color: #555; font-size: 0.75rem; font-weight: 600; }
+.related-item:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-3px);
+}
+
+.related-item p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.related-tag {
+    color: var(--text-white);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
 
 .related-footer {
     display: flex;
@@ -201,12 +260,12 @@
 
 .related-footer i {
     font-size: 0.8rem;
-    color: #444;
+    color: var(--text-dark);
     transition: 0.3s;
 }
 
 .related-item:hover .related-footer i {
-    color: #bc13fe;
+    color: var(--primary);
     transform: translateX(3px);
 }
 
@@ -215,11 +274,118 @@
     opacity: 0.4;
     display: flex;
     gap: 12px;
-    color: #fff;
+    color: var(--text-white);
     font-size: 0.8rem;
 }
 
+@media (max-width: 1100px) {
+    .detail-main-container {
+        gap: 25px;
+        padding: 0 10px;
+    }
+
+    .main-confession-card {
+        padding: 35px;
+    }
+
+    .confession-body p {
+        font-size: 1.2rem;
+    }
+}
+
 @media (max-width: 900px) {
-    .detail-main-container { flex-direction: column; }
-    .related-side { width: 100%; position: static; }
+    .detail-page-wrapper {
+        padding: 10px 15px 40px;
+    }
+
+    .detail-main-container {
+        flex-direction: column;
+    }
+
+    .content-side {
+        width: 100%;
+    }
+
+    .related-side {
+        width: 100%;
+        position: static;
+        margin-top: 30px;
+    }
+
+    .bg-glow {
+        width: 300px;
+        height: 300px;
+        top: 10%;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-confession-card {
+        padding: 25px;
+        border-radius: 24px;
+    }
+
+    .author-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .tag-box-detail {
+        align-self: flex-start;
+    }
+
+    .avatar-neon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+        border-radius: 14px;
+    }
+
+    .confession-body p {
+        font-size: 1.1rem;
+        margin: 25px 0;
+        line-height: 1.7;
+    }
+
+    .confession-footer {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .footer-right {
+        width: 100%;
+        justify-content: space-between;
+        padding-top: 10px;
+    }
+
+    .btn-react {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .back-link-modern span {
+        font-size: 0.85rem;
+    }
+
+    .back-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .meta h3 {
+        font-size: 1rem;
+    }
+
+    .sidebar-widget {
+        padding: 18px;
+        border-radius: 20px;
+    }
+
+    .related-item {
+        padding: 12px;
+    }
 }

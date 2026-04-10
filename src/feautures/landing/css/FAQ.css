@@ -1,6 +1,6 @@
 .faq-section {
     padding: 120px 8%;
-    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    border-top: 1px solid var(--border-soft);
 }
 
 .section-intro {
@@ -11,10 +11,11 @@
 .section-title {
     font-size: 3rem;
     font-weight: 800;
+    color: var(--text-white);
 }
 
 .badge-small {
-    color: #bc13fe;
+    color: var(--primary);
     font-weight: 800;
     letter-spacing: 2px;
     margin-bottom: 10px;
@@ -27,8 +28,8 @@
 }
 
 .faq-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
     border-radius: 20px;
     margin-bottom: 15px;
     cursor: pointer;
@@ -42,11 +43,12 @@
     align-items: center;
     font-size: 1.1rem;
     font-weight: 600;
+    color: var(--text-white);
 }
 
 .faq-header i {
     transition: 0.4s;
-    color: #bc13fe;
+    color: var(--primary);
 }
 
 .faq-body {
@@ -57,14 +59,14 @@
 
 .faq-body-content {
     padding: 0 30px 25px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-muted);
     line-height: 1.7;
     font-size: 0.95rem;
 }
 
 .faq-card.active {
-    background: rgba(188, 19, 254, 0.05);
-    border-color: #bc13fe;
+    background: var(--border-primary-light);
+    border-color: var(--primary);
 }
 
 .faq-card.active .faq-header i {
@@ -73,4 +75,61 @@
 
 .faq-card.active .faq-body {
     max-height: 300px;
+}
+
+@media (max-width: 992px) {
+    .faq-section {
+        padding: 80px 5%;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .faq-header {
+        padding: 20px 25px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .faq-section {
+        padding: 60px 20px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .section-intro {
+        margin-bottom: 40px;
+    }
+
+    .faq-header {
+        padding: 18px 20px;
+    }
+
+    .faq-body-content {
+        padding: 0 20px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .badge-small {
+        font-size: 0.7rem;
+    }
+
+    .faq-card {
+        border-radius: 16px;
+    }
+
+    .faq-header {
+        font-size: 0.9rem;
+        gap: 10px;
+    }
 }

@@ -7,78 +7,52 @@
     max-width: 800px;
     height: 64px;
     
-    z-index: 9999; 
-    background: rgba(44, 44, 44, 0.5); 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    z-index: var(--z-modal); 
+    background: var(--bg-nav); 
+    backdrop-filter: var(--blur-main);
+    -webkit-backdrop-filter: var(--blur-main);
     
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px; 
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-full); 
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-main);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .user-section {
-    position: relative; /* Modal'ın bunun altında açılması için */
+    position: relative; 
 }
 
 .profile-circle {
     width: 40px;
     height: 40px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-input);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: #fff;
+    color: var(--text-white);
     font-size: 1.2rem;
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-soft);
 }
 
 .profile-circle:hover, .profile-circle.active {
-    background: rgba(188, 19, 254, 0.2);
-    border-color: rgba(188, 19, 254, 0.5);
-    box-shadow: 0 0 15px rgba(188, 19, 254, 0.3);
+    background: var(--bg-badge);
+    border-color: var(--border-primary);
+    box-shadow: var(--shadow-neon);
     transform: scale(1.05);
 }
 
 .logo {
-    color: #fff;
+    color: var(--text-white);
     font-size: 1.1rem;
     font-weight: 500;
     letter-spacing: -0.5px;
-}
-
-.search-bar {
-    width: 180px;
-    height: 36px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
-    gap: 8px;
-    transition: width 0.3s ease;
-}
-
-.search-bar:focus-within {
-    width: 280px;
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.search-bar input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-size: 0.9rem;
-    outline: none;
 }
 
 .button-area {
@@ -98,20 +72,75 @@
 
 .login-btn {
     background: transparent;
-    color: #fff;
+    color: var(--text-white);
 }
 
 .login-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-input);
 }
 
 .signup-btn {
-    background: #fff;
-    color: #000;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    background: var(--text-white);
+    color: var(--bg-dark);
+    box-shadow: var(--shadow-white);
 }
 
 .signup-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 992px) {
+    .navbar {
+        width: 95%;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        top: 10px;
+        height: 56px;
+        border-radius: 20px;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .profile-circle {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        width: 92%;
+        padding: 0 12px;
+    }
+
+    .button-area {
+        gap: 5px;
+    }
+
+    .login-btn {
+        display: none;
+    }
+
+    .signup-btn {
+        padding: 8px 14px;
+        font-size: 0.75rem;
+    }
+
+    .logo {
+        font-weight: 700;
+        letter-spacing: -1px;
+    }
 }

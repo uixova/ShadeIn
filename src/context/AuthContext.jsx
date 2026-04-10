@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
-// İlerde gerçek API'ye bağlayacağın yerler
-// import { loginApi, signupApi, fetchUserProfileApi } from '../api/api';
-
+// api.js dosyasından senin yazdığın fonksiyonları çekiyoruz
+import { fetchUserProfileApi, updateUserProfileApi } from '../api/api'; 
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
@@ -13,15 +12,16 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const initAuth = async () => {
             try {
-                // Sayfa yenilendiğinde localStorage'da token varsa kullanıcıyı çek
-                // const token = localStorage.getItem('shade_token');
-                // if (token) {
-                //    const data = await fetchUserProfileApi();
-                //    setUser(data);
-                // }
-                setUser(null); 
+                // localStorage'da token/session var mı diye bak (simüle)
+                const hasSession = localStorage.getItem('shade_session');
+                
+                if (hasSession) {
+                    // Veriyi doğrudan senin api.js içindeki fonksiyondan çekiyoruz
+                    const userData = await fetchUserProfileApi();
+                    setUser(userData);
+                }
             } catch (error) {
-                console.error("Kimlik doğrulama hatası:", error);
+                console.error("Authentication failure:", error);
                 setUser(null);
             } finally {
                 setLoading(false);
@@ -33,39 +33,41 @@ export const AuthProvider = ({ children }) => {
     // GİRİŞ YAPMA
     const login = async (credentials) => {
         try {
-            // Şimdilik simüle ediyoruz, ilerde API'ye gidecek
-            // const response = await loginApi(credentials);
-            const mockUser = { id: 1, username: credentials.username || 'Golge_1', role: 'user' };
-            
-            setUser(mockUser);
-            // localStorage.setItem('shade_token', 'mock_token_123');
-            return { success: true };
+            // İlerde buraya authApi.login(credentials) gelecek
+            const userData = await fetchUserProfileApi();
+
+            if (
+                (credentials.username === userData.username || credentials.username === userData.email) &&
+                credentials.password === userData.password
+            ) {
+                const { _password, ...safeUser } = userData;
+                setUser(safeUser);
+                localStorage.setItem('shade_session', 'active'); 
+                return { success: true };
+            }
+            return { success: false, message: "Incorrect login." };
         } catch (error) {
-            return { success: false, message: "Giriş başarısız:", error  };
+            return { success: false, error };
         }
     };
 
-    // KAYIT OLMA
-    const signup = async (userData) => {
-        try {
-            // const response = await signupApi(userData);
-            const mockUser = { id: 2, username: userData.username, role: 'user' };
-            
-            setUser(mockUser);
-            return { success: true };
-        } catch (error) {
-            return { success: false, message: "Kayıt sırasında hata oluştu.", error};
-        }
-    };
-
+    // ÇIKIŞ
     const logout = () => {
         setUser(null);
-        localStorage.removeItem('shade_token');
+        localStorage.removeItem('shade_session');
     };
 
+    // PROFİL GÜNCELLEME
     const updateUserInfo = async (newData) => {
-        setUser(prev => ({ ...prev, ...newData }));
-        return { success: true };
+        try {
+            const response = await updateUserProfileApi(newData);
+            if (response.success) {
+                setUser(prev => ({ ...prev, ...newData }));
+                return { success: true };
+            }
+        } catch (error) {
+            return { success: false, error };
+        }
     };
 
     return (
@@ -73,7 +75,6 @@ export const AuthProvider = ({ children }) => {
             user, 
             isAuthenticated: !!user, 
             login, 
-            signup, 
             logout, 
             updateUserInfo, 
             loading 

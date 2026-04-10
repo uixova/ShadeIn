@@ -41,7 +41,7 @@ function Home() {
           selectedCategory={selectedCategory} 
           onCategoryChange={setSelectedCategory} 
           onCreateClick={() => setIsCreateModalOpen(true)}
-          loading={loading} // Sidebar'a loading durumunu gönderdik (opsiyonel kullanım için)
+          loading={loading} 
         />
       </div>
 

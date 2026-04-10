@@ -5,7 +5,19 @@
     calc(100% / 3) 100% space;
   clip-path: inset(0 100% 0 0);
   animation: l1 1s steps(4) infinite;
+  
+  margin: 0 auto; 
 }
+
+.loader-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  width: 100%;             
+  min-height: 200px;       
+  padding: 40px 0;
+}
+
 @keyframes l1 {
   to {
     clip-path: inset(0 -34% 0 0);
