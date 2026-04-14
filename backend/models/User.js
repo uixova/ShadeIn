@@ -3,28 +3,35 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const UserSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
-        required: [true, 'Please enter a title']
+        required: [true, 'Lütfen bir kullanıcı adı belirle'],
+        unique: true,
+        trim: true,
+        maxlength: [20, 'Kullanıcı adı 20 karakteri geçemez']
     },
     email: {
         type: String,
-        required: [true, 'Please enter a email'],
+        required: [true, 'Lütfen bir e-posta adresi gir'],
         unique: true,
         match: [
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-            'Please enter a valid email address'
+            'Lütfen geçerli bir e-posta adresi gir'
         ]
     },
     password: {
         type: String,
-        required: [true, 'Please set a password'],
-        minlength: [6, 'Password content must be at least 6 characters'],
-        select: false,
+        required: [true, 'Lütfen bir şifre belirle'],
+        minlength: [6, 'Şifre en az 6 karakter olmalı'],
+        select: false, 
+    },
+    avatar: {
+        type: String,
+        default: 'ti-user-bolt'
     },
     role: {
         type: String,
-        enum: ['user', 'publisher'],
+        enum: ['user', 'admin'], 
         default: 'user' 
     },
     createdAt: {
@@ -33,19 +40,21 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-UserSchema.pre('save', async function() {
+// Şifre şifreleme 
+UserSchema.pre('save', async function(next) {
     if (!this.isModified('password')) {
-        return;
+        next();
     };
-
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
 });
 
+// Şifre karşılaştırma 
 UserSchema.methods.matchPassword = async function(enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
+// JWT Token oluşturma 
 UserSchema.methods.getSignedJwtToken = function() {
     return jwt.sign(
         { id: this._id},
@@ -53,7 +62,5 @@ UserSchema.methods.getSignedJwtToken = function() {
         { expiresIn: process.env.JWT_EXPIRE }
     );
 };
-
-
 
 module.exports = mongoose.model('User', UserSchema);

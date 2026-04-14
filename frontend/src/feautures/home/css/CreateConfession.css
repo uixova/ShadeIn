@@ -140,6 +140,7 @@
     padding: 14px;
     color: var(--text-main);
     outline: none;
+    border-radius: 14px;
 }
 
 .textarea-wrapper textarea:focus {

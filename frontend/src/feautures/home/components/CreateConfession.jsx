@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../css/CreateConfession.css';
+import { createConfessionApi } from '../../../api/api';
 import { EXPIRY_OPTIONS, getExpiryDateFromPreset } from '../../../hooks/useTime';
 
 const CreateConfession = ({ isOpen, onClose, categories }) => {
@@ -12,12 +13,20 @@ const CreateConfession = ({ isOpen, onClose, categories }) => {
 
   const selectableCategories = categories.filter(c => c !== 'Hepsi');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const expiresAt = getExpiryDateFromPreset(expireTime, new Date());
-    console.log("Send:", { text, category, expiresAt });
-    onClose();
-  };
+    
+    try {
+        const res = await createConfessionApi({ text, category, expiresAt });
+        if (res.success) {
+            onClose();
+            window.location.reload(); 
+        }
+    } catch (err) {
+        alert("Gönderilirken bir hata oluştu: " + err.response?.data?.message);
+    }
+};
 
   return (
     <div className="modal-overlay" onClick={onClose}>

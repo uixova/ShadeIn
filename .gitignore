@@ -1,0 +1,35 @@
+# General
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Backend Specific
+backend/node_modules/
+backend/config/.env
+backend/.env
+backend/.env.local
+
+# Frontend Specific
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Vite specific
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# --- Testing ---
+coverage/
+.nyc_output/
+
+# --- Documentation / Temp ---
+.eslintcache

@@ -1,50 +1,45 @@
 const mongoose = require('mongoose');
-const slugify = require('slugify');
 
-const categories = ["Software", "Tech", "Design", "AI", "Frontend", "Backend", "Mobile", "Cybersecurity", "Cloud", "Web3", "Game Dev", "Tutorials"];
-
-const blogSchema = new mongoose.Schema({
-    title: {
+const confessionSchema = new mongoose.Schema({
+    text: {
         type: String,
-        required: [true, 'Please enter a title'], 
-        unique: true,
-        trim: true,
-        maxlength: [50, 'Title cannot be longer than 50 charactersz'],
-        minlength: [3, 'The title must be at least 3 characters']
-    },
-    slug: String,
-    content: {
-        type: String,
-        required: [true, 'Please enter the blog content'],
-        minlength: [20, 'Blog content must be at least 20 characters']
-    },
-    status: {
-        type: String,
-        enum: {
-            values: ['draft', 'published', 'archived'],
-            message: '{VALUE} is not a valid status. Use: draft, published, archived'
-        },
-        default: 'draft'
+        required: [true, 'Lütfen itirafını yaz.'],
+        minlength: [10, 'İtirafın çok kısa, biraz daha detay ver.'],
+        maxlength: [500, 'İtirafın 500 karakter sınırını aşıyor.'] 
     },
     category: {
         type: String,
-        enum: categories,
-        default: 'Tech'
+        enum: ['İtiraf', 'Sır', 'Komik', 'Pişmanlık', 'Aşk', 'Kariyer', 'Okul', 'Eğlence', 'Aile'],
+        default: 'İtiraf'
     },
-    photo: {
-        type: String,
-        default: 'no-photo.jpg'
+    reactions: {
+        heart: { type: Number, default: 0 },
+        laugh: { type: Number, default: 0 },
+        fire: { type: Number, default: 0 },
+        shock: { type: Number, default: 0 },
+        sad: { type: Number, default: 0 },
+        clap: { type: Number, default: 0 }
+    },
+    reactionDetails: [
+        {
+            user: { type: mongoose.Schema.ObjectId, ref: 'User' },
+            type: { type: String }
+        }
+    ],
+    views: {
+        type: Number,
+        default: 0
     },
     user: {
         type: mongoose.Schema.ObjectId,
-        ref: 'User', 
+        ref: 'User',
+        required: true
+    },
+    expiresAt: {
+        type: Date,
         required: true
     },
     createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    updatedAt: {
         type: Date,
         default: Date.now
     }
@@ -53,13 +48,6 @@ const blogSchema = new mongoose.Schema({
     toObject: { virtuals: true } 
 });
 
-blogSchema.pre('save', function() {
-    this.updatedAt = Date.now();
-    this.slug = slugify(this.title, { lower: true });
-});
+confessionSchema.index({ "expiresAt": 1 }, { expireAfterSeconds: 0 });
 
-blogSchema.virtual('fullTitle').get(function() {
-    return `[${this.category}] ${this.title}`;
-});
-
-module.exports = mongoose.model('Blog', blogSchema);
+module.exports = mongoose.model('Confession', confessionSchema);

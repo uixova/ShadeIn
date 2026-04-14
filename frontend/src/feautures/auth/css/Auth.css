@@ -39,7 +39,7 @@
     box-shadow: var(--shadow-main);
     animation: fadeInAuth 0.5s ease-out;
     position: relative;
-    overflow: hidden; /* Glow efekti taşmasın diye */
+    overflow: hidden; 
 }
 
 .auth-card::before {
@@ -67,7 +67,7 @@
     font-size: 2.2rem;
     letter-spacing: -1px;
     margin-bottom: 12px;
-    background: var(--grad-hero-text); /* Root'taki gradienti kullandık */
+    background: var(--grad-hero-text); 
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -112,6 +112,11 @@
     border-color: var(--primary);
     box-shadow: 0 0 20px rgba(188, 19, 254, 0.15);
     outline: none;
+}
+
+.auth-error-msg {
+    color: var(--text-white);
+    margin-bottom: 12px;
 }
 
 .auth-btn {

@@ -1,52 +1,70 @@
-import contentData from '../data/content.json';
-import userData from '../data/user.json';
-import { normalizeConfessions, sortByPopularity } from '../utils/contentUtils';
+import axios from 'axios';
 
-// Parametreleri buradan alıyoruz ki gereksiz veri trafiği olmasın
-export const fetchConfessionsApi = async (page = 1, limit = 10, category = 'Hepsi') => {
-    
-    // Gerçekçi ağ gecikmesi (Network Latency) simülasyonu
-    const randomDelay = Math.floor(Math.random() * (1000 - 400 + 1)) + 400;
+const API_URL = 'http://localhost:5000/api';
 
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const normalizedData = normalizeConfessions(contentData);
-            const popularData = sortByPopularity(normalizedData);
+// import { api } from './api' olarak çekilebilsin.
+export const api = axios.create({
+    baseURL: API_URL,
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
 
-            // Önce kategoriye göre filtrele (Hepsi değilse)
-            let filtered = popularData;
-            if (category !== 'Hepsi') {
-                filtered = popularData.filter(item => item.category === category);
-            }
+// Request Interceptor
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
 
-            // Sayfalama hesaplama
-            const startIndex = (page - 1) * limit;
-            const endIndex = page * limit;
-            
-            // Sadece ilgili 10 taneyi koparıp alıyoruz
-            const slicedData = filtered.slice(startIndex, endIndex);
-            
-            resolve({
-                data: slicedData,
-                total: filtered.length,
-                hasMore: endIndex < filtered.length
-            });
-        }, randomDelay);
-    });
+// Auth
+export const loginApi = async (email, password) => {
+    const response = await api.post('/auth/login', { email, password });
+    return response.data;
+};
+
+export const registerApi = async (userData) => {
+    const response = await api.post('/auth/register', userData);
+    return response.data;
 };
 
 export const fetchUserProfileApi = async () => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(userData);
-        }, 500); 
-    });
+    const response = await api.get('/auth/me');
+    return response.data.data;
 };
 
-export const updateUserProfileApi = async (newInfo) => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({ success: true, data: newInfo });
-        }, 800);
-    });
+// Confession
+export const fetchConfessionsApi = async (page = 1, limit = 10, category = 'Hepsi') => {
+    let url = `/confessions?page=${page}&limit=${limit}&sort=-createdAt`;
+    
+    if (category !== 'Hepsi') {
+        url += `&category=${category}`;
+    }
+
+    const response = await api.get(url);
+    
+    return {
+        data: response.data.data,
+        total: response.data.count,
+        hasMore: !!response.data.pagination.next
+    };
 };
+
+export const createConfessionApi = async (confessionData) => {
+    const response = await api.post('/confessions', confessionData);
+    return response.data;
+};
+
+export const addReactionApi = async (id, reactionType) => {
+    const response = await api.post(`/confessions/${id}/react`, { reactionType });
+    return response.data;
+};
+
+export const deleteConfessionApi = async (id) => {
+    const response = await api.delete(`/confessions/${id}`);
+    return response.data;
+};
+
+export default api;

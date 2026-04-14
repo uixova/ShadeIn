@@ -1,29 +1,28 @@
 const express = require("express");
 const router = express.Router();
-const Blog = require('../models/Blog');
+const Confession = require('../models/Confession');
 const advancedResults = require('../middlewares/advancedResults');
 
 const { 
-    getAllBlogs, 
-    getBlogById, 
-    createBlog,
-    deleteBlog,    
-    updateBlog,    
-    blogPhotoUpload 
-} = require('../controllers/blogController');
+    getAllConfessions, 
+    getConfessionById, 
+    createConfession,
+    deleteConfession,    
+    addReaction,
+} = require('../controllers/contentController');
 
 const { isValidId } = require('../middlewares/validation');
 const { protect } = require('../middlewares/auth');
 
 router.route('/')
-    .get(advancedResults(Blog, { path: 'user', select: 'name email' }), getAllBlogs)
-    .post(protect, createBlog);
+    .get(advancedResults(Confession, { path: 'user', select: 'name email' }), getAllConfessions)
+    .post(protect, createConfession);
 
 router.route('/:id')
-    .get(isValidId, getBlogById)
-    .put(isValidId, protect, updateBlog)
-    .delete(isValidId, protect, deleteBlog);
+    .get(isValidId, getConfessionById)
+    .delete(isValidId, protect, deleteConfession);
 
-router.put('/:id/photo', isValidId, protect, blogPhotoUpload);
+router.route('/:id/react').post(protect, addReaction);
+
 
 module.exports = router;

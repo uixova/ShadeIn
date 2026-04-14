@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './hooks/useAuth';
+import { useAuth } from './context/AuthContext';
 import Loader from './components/Common/Loader';
 import './styles/variable.css'
 import './styles/style.css'

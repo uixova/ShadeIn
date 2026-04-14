@@ -1,47 +1,53 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './css/Auth.css';
 
 const Auth = ({ mode = 'login' }) => {
-  const { login, signup } = useContext(AuthContext);
+  const { login, register } = useContext(AuthContext); 
+  const navigate = useNavigate();
   const [step, setStep] = useState(mode);
   const [isSent, setIsSent] = useState(false);
+  const [error, setError] = useState(''); 
   
-  // Input State'leri
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: ''
   });
 
-  useEffect(() => {
-    setStep(mode);
-  }, [mode]);
+  const handleStepChange = (newStep) => {
+    setStep(newStep);
+    setError('');
+  };
 
-  // Input değişimlerini yakala
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Giriş Yap
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    const result = await login({ 
-      username: formData.username, 
-      password: formData.password 
-    });
-    if (!result.success) {
-        alert("Giriş başarısız: " + result.error);
+    setError('');
+    
+    const result = await login(formData.username, formData.password); 
+    
+    if (result.success) {
+        navigate('/');
+    } else {
+        setError(result.message);
     }
   };
 
-  // Kaydol
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
-    const result = await signup(formData);
-    if (!result.success) {
-        alert("Kayıt başarısız: " + result.error);
+    setError('');
+    
+    const result = await register(formData);
+    
+    if (result.success) {
+        navigate('/');
+    } else {
+        setError(result.message);
     }
   };
 
@@ -71,19 +77,21 @@ const Auth = ({ mode = 'login' }) => {
           </div>
         ) : (
           <>
-            {/* LOGIN */}
             {step === 'login' && (
               <div className="auth-content">
                 <div className="auth-header">
                   <h2>Tekrar Hoş Geldin</h2>
                   <p>Gölge dünyasına güvenli bir giriş yap.</p>
                 </div>
+
+                {error && <div className="auth-error-msg">{error}</div>}
+
                 <form className="auth-form" onSubmit={handleLoginSubmit}>
                   <div className="input-group">
                     <input 
                         type="text" 
                         name="username" 
-                        placeholder="Gölge Adın veya E-posta" 
+                        placeholder="E-posta Adresin" 
                         value={formData.username}
                         onChange={handleChange}
                         required 
@@ -102,27 +110,29 @@ const Auth = ({ mode = 'login' }) => {
                   <button type="submit" className="auth-btn">Giriş Yap</button>
                 </form>
                 <div className="auth-footer">
-                  Henüz bir gölgen yok mu? <span className="auth-link" onClick={() => setStep('signup')}>Hemen Katıl</span>
+                  Henüz bir hesabın yok mu? <span className="auth-link" onClick={() => handleStepChange('signup')}>Hemen Katıl</span>
                   <div style={{marginTop: '20px'}}>
-                    <span className="auth-link" style={{fontSize: '0.85rem', opacity: 0.7}} onClick={() => setStep('reset')}>Şifremi unuttum</span>
+                    <span className="auth-link" style={{fontSize: '0.85rem', opacity: 0.7}} onClick={() => handleStepChange('reset')}>Şifremi unuttum</span>
                   </div>
                 </div>
               </div>
             )}
 
-            {/* SIGNUP */}
             {step === 'signup' && (
               <div className="auth-content">
                 <div className="auth-header">
                   <h2>Gölge Oluştur</h2>
                   <p>Kimliğini geride bırak, yeni bir başlangıç yap.</p>
                 </div>
+
+                {error && <div className="auth-error-msg">{error}</div>}
+
                 <form className="auth-form" onSubmit={handleSignupSubmit}>
                   <div className="input-group">
                     <input 
                         type="text" 
                         name="username" 
-                        placeholder="Görünmez Bir Kullanıcı Adı" 
+                        placeholder="Sahte Bir Kullanıcı Adı" 
                         value={formData.username}
                         onChange={handleChange}
                         required 
@@ -151,12 +161,11 @@ const Auth = ({ mode = 'login' }) => {
                   <button type="submit" className="auth-btn">Karanlığa Adım At</button>
                 </form>
                 <div className="auth-footer">
-                  Zaten bizden biri misin? <span className="auth-link" onClick={() => setStep('login')}>Giriş Yap</span>
+                  Zaten bizden biri misin? <span className="auth-link" onClick={() => handleStepChange('login')}>Giriş Yap</span>
                 </div>
               </div>
             )}
 
-            {/* RESET */}
             {step === 'reset' && (
               <div className="auth-content">
                 <div className="auth-header">
@@ -177,7 +186,7 @@ const Auth = ({ mode = 'login' }) => {
                   <button type="submit" className="auth-btn">Sıfırlama Bağlantısı Gönder</button>
                 </form>
                 <div className="auth-footer">
-                  Hatırladın mı? <span className="auth-link" onClick={() => setStep('login')}>Geri Dön</span>
+                  Hatırladın mı? <span className="auth-link" onClick={() => handleStepChange('login')}>Geri Dön</span>
                 </div>
               </div>
             )}

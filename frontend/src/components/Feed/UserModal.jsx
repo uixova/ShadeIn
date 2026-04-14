@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../hooks/useAuth'; 
+import { useAuth } from '../../context/AuthContext'; 
 import '../css/UserModal.css';
 
 const UserModal = ({ onClose }) => {

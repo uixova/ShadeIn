@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { addReactionApi } from '../../api/api';
 import { homeService } from './service/homeService'; 
 import Sidebar from './components/Categories';
 import CreateConfession from './components/CreateConfession';
@@ -24,13 +25,24 @@ function Home() {
 
   const categories = ['Hepsi', 'İtiraf', 'Sır', 'Komik', 'Pişmanlık', 'Aşk', 'Kariyer', 'Okul', 'Eğlence', 'Aile'];
 
-  // loading: Kategori değiştiğinde veya ilk yüklemede true olur.
-  const { data: confessions, loading, loadMoreLoading, hasMore, next } = 
-    usePagination(homeService.getConfessionsByPage, 10, selectedCategory);
+  const { data: confessions, loading, loadMoreLoading, hasMore, next, updateLocalItem } = usePagination(homeService.getConfessionsByPage, 10, selectedCategory);
 
   const handleReportClick = (id) => {
     setReportingId(id);    
     setIsReportOpen(true); 
+  };
+
+  const handleReaction = async (e, id, type) => {
+    e.stopPropagation();
+    try {
+        const response = await addReactionApi(id, type);
+        
+        updateLocalItem(id, {
+            reactions: response.data 
+        });
+    } catch (err) {
+        console.error("Reaksiyon başarısız", err);
+    }
   };
 
   return (
@@ -50,7 +62,6 @@ function Home() {
           <h2>{selectedCategory} Akışı</h2>
         </div>
         
-        {/* Değişiklik Burası: Kategori değiştiği an loader tetiklenir */}
         {loading ? (
           <div className="loader-container">
             <Loader />
@@ -70,7 +81,7 @@ function Home() {
           <>
             <div className="cards-container">
               {confessions.map((item) => (
-                <div key={item.id} className="confession-card" onClick={() => navigate(`/detail/${item.id}`)}>
+                <div key={item._id} className="confession-card" onClick={() => navigate(`/detail/${item._id}`)}>
                   <div className="card-header">
                     <span className={`tag ${item.category.toLowerCase()}`}>{item.category}</span>
                     <TimeLabel date={item.createdAt} />
@@ -79,18 +90,18 @@ function Home() {
                   <p className="card-content">{item.text}</p>
                   
                   <div className="card-footer">
-                    <button className="action-btn" onClick={(e) => e.stopPropagation()}>❤️ {item.reactions.heart}</button>
-                    <button className="action-btn" onClick={(e) => e.stopPropagation()}>😂 {item.reactions.laugh}</button>
-                    <button className="action-btn" onClick={(e) => e.stopPropagation()}>🔥 {item.reactions.fire}</button>
-                    <button className="action-btn" onClick={(e) => e.stopPropagation()}>😮 {item.reactions.shock}</button>
-                    <button className="action-btn" onClick={(e) => e.stopPropagation()}>😢 {item.reactions.sad}</button>
-                    <button className="action-btn" onClick={(e) => e.stopPropagation()}>👏 {item.reactions.clap}</button>
+                    <button className="action-btn" onClick={(e) => handleReaction(e, item._id, 'heart', item.reactions.heart)}>❤️ {item.reactions.heart}</button>
+                    <button className="action-btn" onClick={(e) => handleReaction(e, item._id, 'laugh', item.reactions.laugh)}>😂 {item.reactions.laugh}</button>
+                    <button className="action-btn" onClick={(e) => handleReaction(e, item._id, 'fire', item.reactions.fire)}>🔥 {item.reactions.fire}</button>
+                    <button className="action-btn" onClick={(e) => handleReaction(e, item._id, 'shock', item.reactions.shock)}>😮 {item.reactions.shock}</button>
+                    <button className="action-btn" onClick={(e) => handleReaction(e, item._id, 'sad', item.reactions.sad)}>😢 {item.reactions.sad}</button>
+                    <button className="action-btn" onClick={(e) => handleReaction(e, item._id, 'clap', item.reactions.clap)}>👏 {item.reactions.clap}</button>
 
                     <button 
                       className="report-btn" 
                       onClick={(e) => {
                         e.stopPropagation(); 
-                        handleReportClick(item.id);
+                        handleReportClick(item._id);
                       }}
                     >
                       <i className="ti ti-alert-circle"></i> Report
