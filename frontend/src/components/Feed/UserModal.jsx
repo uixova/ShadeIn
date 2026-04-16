@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import '../css/UserModal.css';
 
 const UserModal = ({ onClose }) => {
-  const { user, updateUserInfo, logout } = useAuth();
+  const { user, updateUserInfo, logout, deleteAccount } = useAuth();
   const [view, setView] = useState('main');
   
   const [formData, setFormData] = useState({
@@ -13,15 +13,30 @@ const UserModal = ({ onClose }) => {
   });
 
   const handleSave = async () => {
-    const result = await updateUserInfo({
+    const payload = {
         username: formData.username,
         email: formData.email
-    });
+    };
+
+    // Eğer şifre alanına bir şey yazıldıysa onu da ekle
+    if (formData.password.trim() !== '') {
+        payload.password = formData.password;
+    }
+
+    const result = await updateUserInfo(payload);
 
     if (result.success) {
         setView('main');
+        // Başarı mesajı toast veya alert
     } else {
-        alert("Güncelleme sırasında bir hata oluştu.");
+        alert(result.error || "Güncelleme başarısız.");
+    }
+  };
+
+  const handleDelete = async () => {
+    if (window.confirm("Buna hazır mısın? Tüm verilerin kalıcı olarak silinecek.")) {
+        const result = await deleteAccount();
+        if (!result.success) alert("Hata oluştu.");
     }
   };
 
@@ -76,7 +91,7 @@ const UserModal = ({ onClose }) => {
             <h4 className='user-delete-msg'>Gidicek misin?</h4>
             <p>Hesabını sildiğinde tüm izlerin ShadeIn'den silinecek.</p>
             <div className="delete-actions">
-              <button className="confirm-delete-btn">Sil ve Ayrıl</button>
+              <button className="confirm-delete-btn" onClick={handleDelete}>Sil ve Ayrıl</button>
               <button className="cancel-btn" onClick={() => setView('main')}>Vazgeç</button>
             </div>
           </div>

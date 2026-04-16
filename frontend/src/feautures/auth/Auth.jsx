@@ -1,14 +1,16 @@
 import React, { useState, useContext } from 'react';
+import emailjs from '@emailjs/browser';
 import { AuthContext } from '../../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import './css/Auth.css';
 
 const Auth = ({ mode = 'login' }) => {
-  const { login, register } = useContext(AuthContext); 
+  const { login, register, forgotPassword } = useContext(AuthContext); 
   const navigate = useNavigate();
   const [step, setStep] = useState(mode);
   const [isSent, setIsSent] = useState(false);
   const [error, setError] = useState(''); 
+  const [loading, setLoading] = useState(false);
   
   const [formData, setFormData] = useState({
     username: '',
@@ -19,6 +21,7 @@ const Auth = ({ mode = 'login' }) => {
   const handleStepChange = (newStep) => {
     setStep(newStep);
     setError('');
+    setFormData({ username: '', email: '', password: '' }); 
   };
 
   const handleChange = (e) => {
@@ -51,13 +54,46 @@ const Auth = ({ mode = 'login' }) => {
     }
   };
 
-  const handleResetSubmit = (e) => {
+  const handleResetSubmit = async (e) => {
     e.preventDefault();
-    setIsSent(true);
-    setTimeout(() => {
-      setIsSent(false);
-      setStep('login');
-    }, 3500);
+    setError('');
+    setLoading(true); 
+
+    const result = await forgotPassword(formData.email);
+
+    if (result.success) {
+      const resetLink = `http://localhost:5173/reset-password/${result.resetToken}`;
+
+      const templateParams = {
+        email: formData.email,
+        reset_link: resetLink,
+      };
+
+      emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+        .then(() => {
+          setIsSent(true); 
+          setLoading(false); 
+        
+          setFormData({ username: '', email: '', password: '' });
+
+          setTimeout(() => {
+            setIsSent(false);
+            setStep('login');
+          }, 3500);
+        })
+        .catch(() => {
+          setError("Mail servisinde bir hata oluştu.");
+          setLoading(false); 
+        });
+    }   else {
+      setError(result.message);
+      setLoading(false); 
+    }
   };
 
   return (
@@ -183,7 +219,9 @@ const Auth = ({ mode = 'login' }) => {
                         required 
                     />
                   </div>
-                  <button type="submit" className="auth-btn">Sıfırlama Bağlantısı Gönder</button>
+                  <button type="submit" className="auth-btn" disabled={loading}>
+                    {loading ? "Gönderiliyor..." : "Sıfırlama Bağlantısı Gönder"}
+                  </button>
                 </form>
                 <div className="auth-footer">
                   Hatırladın mı? <span className="auth-link" onClick={() => handleStepChange('login')}>Geri Dön</span>

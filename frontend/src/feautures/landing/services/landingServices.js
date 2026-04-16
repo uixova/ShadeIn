@@ -6,7 +6,7 @@ export const fetchFaqsApi = () => {
     return faqData; 
 };
 
-// Features (Özellikler) verisini getir
+// Features verisini getir
 export const fetchFeaturesApi = () => {
     return featuresData;
 };

@@ -26,6 +26,28 @@ const confessionSchema = new mongoose.Schema({
             type: { type: String }
         }
     ],
+    expiresAt: {
+        type: Date,
+        required: [true, 'Lütfen bir bitiş süresi belirle']
+    },
+    reportDetails: [
+        {
+            user: { type: mongoose.Schema.ObjectId, ref: 'User' },
+            reason: { type: String, required: true },
+            description: { type: String }, 
+            at: { type: Date, default: Date.now }
+        }
+    ],
+    reportCount: {
+        type: Number,
+        default: 0
+    },
+    viewDetails: [
+        {
+            user: { type: mongoose.Schema.ObjectId, ref: 'User' },
+            at: { type: Date, default: Date.now }
+        }
+    ],
     views: {
         type: Number,
         default: 0
@@ -35,9 +57,13 @@ const confessionSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    expiresAt: {
+    isDeleted: {
+        type: Boolean,
+        default: false 
+    },
+    deletedAt: {
         type: Date,
-        required: true
+        default: null 
     },
     createdAt: {
         type: Date,
@@ -47,7 +73,5 @@ const confessionSchema = new mongoose.Schema({
     toJSON: { virtuals: true }, 
     toObject: { virtuals: true } 
 });
-
-confessionSchema.index({ "expiresAt": 1 }, { expireAfterSeconds: 0 });
 
 module.exports = mongoose.model('Confession', confessionSchema);

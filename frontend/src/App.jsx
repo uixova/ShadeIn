@@ -11,6 +11,9 @@ import Home from './feautures/home/Home';
 import Detail from './feautures/detail/Detail';
 import Landing from './feautures/landing/Landing'; 
 import Auth from './feautures/auth/Auth'; 
+import ResetPassword from './feautures/auth/ResetPassword'
+
+import Admin from './admin/Admin';
 
 function App() {
   const { isAuthenticated, loading } = useAuth();
@@ -57,6 +60,10 @@ function App() {
             path="/detail/:id" 
             element={isAuthenticated ? <Detail /> : <Navigate to="/" />} 
           />
+
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+          <Route path="/x-secret-root-51" element={<Admin />} />
 
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

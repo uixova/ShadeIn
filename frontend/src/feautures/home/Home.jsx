@@ -25,10 +25,10 @@ function Home() {
 
   const categories = ['Hepsi', 'İtiraf', 'Sır', 'Komik', 'Pişmanlık', 'Aşk', 'Kariyer', 'Okul', 'Eğlence', 'Aile'];
 
-  const { data: confessions, loading, loadMoreLoading, hasMore, next, updateLocalItem } = usePagination(homeService.getConfessionsByPage, 10, selectedCategory);
+  const { data: confessions, loading, loadMoreLoading, hasMore, next, updateLocalItem, addNewItem, removeItem } = usePagination(homeService.getConfessionsByPage, 10, selectedCategory);
 
   const handleReportClick = (id) => {
-    setReportingId(id);    
+    setReportingId(id); 
     setIsReportOpen(true); 
   };
 
@@ -130,16 +130,22 @@ function Home() {
         isOpen={isCreateModalOpen} 
         onClose={() => setIsCreateModalOpen(false)} 
         categories={categories}
+        onSuccess={(newConfession) => addNewItem(newConfession)} 
       />
 
       <Report 
         isOpen={isReportOpen} 
-        onClose={() => {
-          setIsReportOpen(false);
-          setReportingId(null); 
-        }} 
-        contentId={reportingId}
-      />
+          onClose={() => {
+            setIsReportOpen(false);
+            setReportingId(null); 
+          }} 
+          onReportSubmit={() => {
+            if (reportingId) {
+              removeItem(reportingId); 
+            }
+          }} 
+          contentId={reportingId}
+        />
     </div>
   );
 }

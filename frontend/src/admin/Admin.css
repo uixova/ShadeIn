@@ -1,0 +1,155 @@
+:root {
+    --bg-dark: #0a0a0c;
+    --card-bg: #121216;
+    --cyber-pink: #ff0055;
+    --cyber-blue: #00f2ff;
+    --text-dim: #a0a0a5;
+    --border-color: #25252b;
+}
+
+.admin-container {
+    color: #fff;
+    min-height: 100vh;
+    padding: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.cyber-title {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+.cyber-title span {
+    color: var(--cyber-pink);
+}
+
+.tab-group {
+    display: flex;
+    gap: 10px;
+}
+
+.tab-group button {
+    background: var(--border-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-dim);
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tab-group button.active {
+    background: var(--cyber-pink);
+    color: white;
+    border-color: var(--cyber-pink);
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.cyber-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 1.5rem;
+    position: relative;
+    transition: 0.3s;
+}
+
+.cyber-card:hover {
+    border-color: #444;
+    transform: translateY(-3px);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 0.7rem;
+}
+
+.badge-reports {
+    background: rgba(255, 0, 85, 0.1);
+    color: var(--cyber-pink);
+    padding: 2px 8px;
+    border: 1px solid var(--cyber-pink);
+}
+
+.confession-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+    margin-bottom: 1.5rem;
+}
+
+.cyber-select {
+    background: #000;
+    color: var(--cyber-blue);
+    border: 1px solid #333;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.card-footer {
+    display: flex;
+    gap: 10px;
+    margin-top: 1.5rem;
+}
+
+.btn-cyber {
+    flex: 1;
+    padding: 10px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    text-transform: uppercase;
+}
+
+.btn-ignore {
+    background: #333;
+    color: white;
+}
+
+.btn-soft {
+    background: var(--cyber-pink);
+    color: white;
+}
+
+.btn-restore {
+    background: var(--cyber-blue);
+    color: #000;
+}
+
+.btn-hard {
+    background: transparent;
+    color: #ff0000;
+    border: 1px solid #ff0000;
+}
+
+.load-more-btn {
+    width: 100%;
+    margin-top: 3rem;
+    background: transparent;
+    border: 1px dashed var(--border-color);
+    color: var(--text-dim);
+    padding: 20px;
+    cursor: pointer;
+}
+
+.load-more-btn:hover {
+    background: #1a1a1f;
+    color: #fff;
+}

@@ -3,6 +3,7 @@ import axios from 'axios';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
+const API_URL = 'http://localhost:5000/api';
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -29,7 +30,7 @@ export const AuthProvider = ({ children }) => {
             if (token) {
                 setAuthToken(token);
                 try {
-                    const res = await axios.get('http://localhost:5000/api/auth/me');
+                    const res = await axios.get(`${API_URL}/auth/me`);
                     setUser(res.data.data);
                 } catch (error) {
                     console.error("Auth init hatası:", error);
@@ -44,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     // GİRİŞ YAPMA
     const login = async (email, password) => {
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+            const res = await axios.post(`${API_URL}/auth/login`, { email, password });
             if (res.data.success) {
                 setAuthToken(res.data.token);
                 setUser(res.data.user);
@@ -61,7 +62,7 @@ export const AuthProvider = ({ children }) => {
     // KAYIT OLMA
     const register = async (userData) => {
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/register', userData);
+            const res = await axios.post(`${API_URL}/auth/register`, userData);
             if (res.data.success) {
                 setAuthToken(res.data.token);
                 setUser(res.data.user);
@@ -75,6 +76,48 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    //KULLANICI BILGISI GUNCELLEME
+    const updateUserInfo = async (updatedData) => {
+        try {
+            const res = await axios.put(`${API_URL}/auth/updatedetails`, updatedData);
+        
+            if (res.data.success) {
+                setUser(res.data.data); 
+                return { success: true };
+            }
+        } catch (err) {
+            console.error(err);
+            return { success: false, error: err.response?.data?.message };
+        }
+    };
+
+    //HESAP SILME
+    const deleteAccount = async () => {
+        try {
+            await axios.delete(`${API_URL}/auth/deleteme`);
+            logout(); 
+            return { success: true };
+        } catch (err) {
+            return { success: false, error: err.response?.data?.message };
+        }
+    };
+
+    const forgotPassword = async (email) => {
+        try {
+            const res = await axios.post(`${API_URL}/auth/forgotpassword`, { email });
+        
+            return { 
+                success: true, 
+                resetToken: res.data.resetToken 
+            };
+        } catch (error) {
+            return { 
+                success: false, 
+                message: error.response?.data?.error || "İşlem başarısız." 
+            };
+        }
+    };
+
     return (
         <AuthContext.Provider value={{ 
             user, 
@@ -82,7 +125,10 @@ export const AuthProvider = ({ children }) => {
             login, 
             register,
             logout, 
-            loading 
+            loading,
+            updateUserInfo,
+            deleteAccount,
+            forgotPassword
         }}>
             {children}
         </AuthContext.Provider>

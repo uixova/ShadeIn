@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { reportContentApi } from '../../api/api';
 import '../css/Report.css';
 
 const Report = ({ isOpen, onClose, contentId }) => {
@@ -8,28 +9,30 @@ const Report = ({ isOpen, onClose, contentId }) => {
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Backend simülasyonu
-    const reportData = {
-      contentId,
-      reason,
-      description,
-      timestamp: new Date().toISOString(),
-      // İleride auth eklediğinde buraya user bilgilerini hook'tan çekeriz
-      reporter: "Current_User_ID_or_Email" 
-    };
+    try {
+      const res = await reportContentApi(contentId, { 
+        reason, 
+        description 
+      });
 
-    console.log("Rapor Gönderildi:", reportData);
-
-    // Simüle edilmiş gecikme
-    setTimeout(() => {
+      if (res.data.success) {
+        alert(res.data.message); 
+        onClose();
+        
+        if (res.data.message.includes("incelemeye alındı")) {
+           window.location.reload(); 
+        }
+      }
+    } catch (err) {
+      const errorMsg = err.response?.data?.error || "Rapor gönderilemedi.";
+      alert(errorMsg);
+    } finally {
       setIsSubmitting(false);
-      alert("Raporun incelenmek üzere gölgelere iletildi. Teşekkürler.");
-      onClose();
-    }, 1000);
+    }
   };
 
   return (

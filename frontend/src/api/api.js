@@ -43,13 +43,24 @@ export const fetchConfessionsApi = async (page = 1, limit = 10, category = 'Heps
         url += `&category=${category}`;
     }
 
-    const response = await api.get(url);
-    
-    return {
-        data: response.data.data,
-        total: response.data.count,
-        hasMore: !!response.data.pagination.next
-    };
+    try {
+        const response = await api.get(url);
+        
+        const { data, count, pagination } = response.data;
+
+        return {
+            data: data || [],
+            total: count || 0,
+            hasMore: !!pagination?.next 
+        };
+    } catch (err) {
+        console.error("Fetch API Hatası:", err.response?.data || err.message);
+        return {
+            data: [],
+            total: 0,
+            hasMore: false
+        };
+    }
 };
 
 export const createConfessionApi = async (confessionData) => {
@@ -65,6 +76,10 @@ export const addReactionApi = async (id, reactionType) => {
 export const deleteConfessionApi = async (id) => {
     const response = await api.delete(`/confessions/${id}`);
     return response.data;
+};
+
+export const reportContentApi = async (id, reportData) => {
+    return await api.post(`/confessions/${id}/report`, reportData);
 };
 
 export default api;

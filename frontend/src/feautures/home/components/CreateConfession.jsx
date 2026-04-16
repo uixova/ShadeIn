@@ -3,7 +3,7 @@ import '../css/CreateConfession.css';
 import { createConfessionApi } from '../../../api/api';
 import { EXPIRY_OPTIONS, getExpiryDateFromPreset } from '../../../hooks/useTime';
 
-const CreateConfession = ({ isOpen, onClose, categories }) => {
+const CreateConfession = ({ isOpen, onClose, categories, onSuccess }) => {
   const [text, setText] = useState('');
   const [category, setCategory] = useState('İtiraf');
   const [expireTime, setExpireTime] = useState('24h');
@@ -14,19 +14,19 @@ const CreateConfession = ({ isOpen, onClose, categories }) => {
   const selectableCategories = categories.filter(c => c !== 'Hepsi');
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const expiresAt = getExpiryDateFromPreset(expireTime, new Date());
-    
-    try {
-        const res = await createConfessionApi({ text, category, expiresAt });
-        if (res.success) {
-            onClose();
-            window.location.reload(); 
+        e.preventDefault();
+        const expiresAt = getExpiryDateFromPreset(expireTime, new Date());
+        
+        try {
+            const res = await createConfessionApi({ text, category, expiresAt });
+            if (res.success) {
+                onSuccess(res.data); 
+                onClose();
+            }
+        } catch (err) {
+            alert("Hata: " + err.response?.data?.message);
         }
-    } catch (err) {
-        alert("Gönderilirken bir hata oluştu: " + err.response?.data?.message);
-    }
-};
+    };
 
   return (
     <div className="modal-overlay" onClick={onClose}>

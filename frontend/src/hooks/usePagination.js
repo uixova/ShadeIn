@@ -50,5 +50,13 @@ export const usePagination = (fetchService, limit = 10, category = 'Hepsi') => {
         );
     }, []);
 
-    return { data, loading, loadMoreLoading, hasMore, next, updateLocalItem };
+    const addNewItem = (newItem) => {
+        setData(prevData => [newItem, ...prevData]); 
+    };
+
+    const removeItem = useCallback((id) => {
+        setData(prevData => prevData.filter(item => (item._id !== id && item.id !== id)));
+    }, []);
+
+    return { data, loading, loadMoreLoading, hasMore, next, updateLocalItem, addNewItem, removeItem };
 };

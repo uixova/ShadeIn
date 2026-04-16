@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const crypto = require('crypto');
 const asyncHandler = require('../utils/asyncHandler');
 const ErrorResponse = require('../utils/errorResponse');
 
@@ -55,6 +56,75 @@ exports.login = asyncHandler(async (req, res, next) => {
     }
 
     // Token oluştur ve gönder
+    sendTokenResponse(user, 200, res);
+});
+
+exports.updateDetails = asyncHandler(async (req, res, next) => {
+    const user = await User.findByIdAndUpdate(
+        req.user.id, 
+        { username: req.body.username, email: req.body.email }, 
+        { new: true, runValidators: true }
+    );
+
+    res.status(200).json({ success: true, data: user });
+});
+
+exports.deleteMe = asyncHandler(async (req, res, next) => {
+    await User.findByIdAndDelete(req.user.id);
+
+    res.status(200).json({ success: true, data: {} });
+});
+
+exports.forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                error: 'Bu e-posta adresine ait bir kullanıcı bulunamadı'
+            });
+        }
+
+        const resetToken = crypto.randomBytes(20).toString('hex');
+        user.resetPasswordToken = resetToken;
+        user.resetPasswordExpire = Date.now() + 10 * 60 * 1000; 
+
+        await user.save({ validateBeforeSave: false });
+
+        return res.status(200).json({
+            success: true,
+            resetToken 
+        });
+
+    } catch (err) {
+        console.error("FORGOT PASSWORD HATASI:", err);
+        return res.status(500).json({
+            success: false,
+            error: 'Sunucu hatası oluştu, lütfen tekrar dene'
+        });
+    }
+};
+
+exports.resetPassword = asyncHandler(async (req, res, next) => {
+    const resetPasswordToken = req.params.resettoken;
+
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() }
+    });
+
+    if (!user) {
+        return next(new ErrorResponse('Geçersiz veya süresi dolmuş bağlantı', 400));
+    }
+
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined; 
+    user.resetPasswordExpire = undefined; 
+    await user.save();
+
     sendTokenResponse(user, 200, res);
 });
 

@@ -15,21 +15,16 @@ const Detail = () => {
     const [loading, setLoading] = useState(true);
     const [isReportOpen, setIsReportOpen] = useState(false);
 
-    // Zaman formatlaması (Veri geldikten sonra çalışır)
     const timeFormatted = useTime(confession?.createdAt);
 
     useEffect(() => {
         const fetchDetailData = async () => {
             setLoading(true);
             try {
-                // 1. İtiraf Detayını Getir
                 const res = await api.get(`/confessions/${id}`);
                 setConfession(res.data.data);
 
-                // 2. Benzer İtirafları Getir (Örn: Aynı kategoriden rastgele 3 tane)
-                // Backend'de özel bir 'related' endpoint'in yoksa normal akıştan çekiyoruz
                 const relatedRes = await api.get(`/confessions?limit=3&category=${res.data.data.category}`);
-                // Kendi id'si olmayanları filtrele
                 setRelatedConfessions(relatedRes.data.data.filter(item => item._id !== id));
             } catch (err) {
                 console.error("Veri çekme hatası:", err);
@@ -40,7 +35,6 @@ const Detail = () => {
 
         fetchDetailData();
         
-        // Sayfa değiştiğinde en yukarı kaydır
         window.scrollTo(0, 0);
     }, [id]);
 
@@ -48,7 +42,6 @@ const Detail = () => {
     const handleReaction = async (type) => {
         try {
             await addReactionApi(id, type);
-            // UI'da rakamı anlık güncellemek için:
             setConfession(prev => ({
                 ...prev,
                 reactions: {

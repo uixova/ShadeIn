@@ -29,10 +29,8 @@ exports.protect = asyncHandler(async (req, res, next) => {
 exports.authorize = (...roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user.role)) {
-            return res.status(403).json({ 
-                success: false, 
-                message: `The user role (${req.user.role}) is not authorized to do this operation.` 
-            });
+            return next(new ErrorResponse(`Bu alana erişim yetkiniz yok.`, 403));
         }
-    }
-}
+        next();
+    };
+};

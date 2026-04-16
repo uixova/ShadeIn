@@ -5,31 +5,39 @@ Thumbs.db
 *.log
 .vscode/
 .idea/
+.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment Files 
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+**/config/.env
+**/.env
 
 # Backend Specific
 backend/node_modules/
-backend/config/.env
-backend/.env
-backend/.env.local
+backend/dist/
+backend/build/
 
 # Frontend Specific
 frontend/node_modules/
 frontend/dist/
 frontend/build/
-frontend/.env
-frontend/.env.local
-frontend/.env.development.local
-frontend/.env.test.local
-frontend/.env.production.local
+frontend/stats.json
 
-# Vite specific
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
-
-# --- Testing ---
+# Testing
 coverage/
 .nyc_output/
 
-# --- Documentation / Temp ---
-.eslintcache
+# Build & Cache
+dist/
+build/
+.cache/
+.parcel-cache/
+.next/
+out/

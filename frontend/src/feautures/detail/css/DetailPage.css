@@ -101,7 +101,7 @@
 .avatar-neon {
     width: 55px;
     height: 55px;
-    background: var(--bg-dark);
+    background: var(--bg-badge);
     border: 1px solid var(--border-primary);
     border-radius: 18px;
     display: flex;
@@ -149,6 +149,10 @@
 .meta .time {
     color: #989898;
     font-size: 0.85rem;
+}
+
+.no-related {
+    color: var(--text-main);
 }
 
 .confession-body p {

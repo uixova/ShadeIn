@@ -11,6 +11,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "axios": "^1.15.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
@@ -24,6 +25,7 @@
     "hpp": "^0.2.3",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.2.4",
+    "node-cron": "^4.2.1",
     "nodemon": "^3.1.14",
     "path": "^0.12.7",
     "rate-limiter": "^0.2.0",
