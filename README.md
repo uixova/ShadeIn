@@ -8,7 +8,7 @@
 
 🔗 **Live Demo:** [shade-in.vercel.app](https://shade-in.vercel.app/)
 
----------------------------------------------------------------------------
+---
 
 ## ✨ Features
 
@@ -19,7 +19,7 @@
 * 🔐 **Secure Authentication:** JWT (JSON Web Token) based login and password reset workflows.
 * 📈 **SEO Optimized:** Fully configured meta tags and search engine optimization.
 
----------------------------------------------------------------------------
+---
 
 ## 🛠️ Tech Stack
 
@@ -37,15 +37,15 @@
 * **Hosting:** Vercel (Frontend) & Render (Backend)
 * **E-Mail:** EmailJS (For password reset services)
 
----------------------------------------------------------------------------
+---
 
 ## 🚀 Installation & Local Setup
 
 Follow these steps to run the project locally:
 
-** 1. Clone the Repository**
+**1. Clone the Repository**
 ```bash
-git clone [https://github.com/uixova/ShadeIn.git](https://github.com/uixova/ShadeIn.git)
+git clone https://github.com/uixova/ShadeIn.git
 
 ```
 
@@ -72,8 +72,8 @@ npm run dev
 ## 🛡️ License
 This project was created for personal development and portfolio purposes. All rights reserved.
 
----------------------------------------------------------------------------
+```markdown
+---
+*Developer: [uixova](https://github.com/uixova)*
 
-Developer: uixova
-
-*** This project was created for personal development purposes. All rights reserved. ***
+> **Note:** This project was created for personal development purposes. All rights reserved.
