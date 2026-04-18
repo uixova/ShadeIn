@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { api } from '../../api/api';
 import './css/Auth.css';
 
 const ResetPassword = () => {
@@ -13,16 +13,16 @@ const ResetPassword = () => {
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
+    e.preventDefault();
+    setError('');
 
-        if (password !== confirmPassword) {
-            return setError('Şifreler eşleşmiyor.');
-        }
+    if (password !== confirmPassword) {
+        return setError('Şifreler eşleşmiyor.');
+    }
 
-        setLoading(true);
+    setLoading(true);
         try {
-            const res = await axios.put(`http://localhost:5000/api/auth/resetpassword/${token}`, { password });
+            const res = await api.put(`/auth/resetpassword/${token}`, { password });
 
             if (res.data.success) {
                 alert("Şifren başarıyla güncellendi! Giriş yapabilirsin.");

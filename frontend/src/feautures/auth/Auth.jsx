@@ -62,11 +62,12 @@ const Auth = ({ mode = 'login' }) => {
     const result = await forgotPassword(formData.email);
 
     if (result.success) {
-      const resetLink = `http://localhost:5173/reset-password/${result.resetToken}`;
+      const frontendURL = window.location.origin;
+      const resetLink = `${frontendURL}/reset-password/${result.resetToken}`;
 
       const templateParams = {
         email: formData.email,
-        reset_link: resetLink,
+        reset_link: resetLink, 
       };
 
       emailjs.send(
@@ -78,7 +79,6 @@ const Auth = ({ mode = 'login' }) => {
         .then(() => {
           setIsSent(true); 
           setLoading(false); 
-        
           setFormData({ username: '', email: '', password: '' });
 
           setTimeout(() => {
@@ -90,7 +90,7 @@ const Auth = ({ mode = 'login' }) => {
           setError("Mail servisinde bir hata oluştu.");
           setLoading(false); 
         });
-    }   else {
+    } else {
       setError(result.message);
       setLoading(false); 
     }
