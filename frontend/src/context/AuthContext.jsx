@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             return { 
                 success: false, 
-                message: error.response?.data?.message || "Kayıt başarısız." 
+                message: error.response?.data?.message || "Lütfen Geçerli Bilgiler Giriniz!" 
             };
         }
     };
@@ -113,7 +113,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             return { 
                 success: false, 
-                message: error.response?.data?.error || "İşlem başarısız." 
+                message: error.response?.data?.error || "İşlem başarısız oldu!" 
             };
         }
     };

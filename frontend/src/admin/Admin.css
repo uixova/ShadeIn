@@ -200,11 +200,6 @@
 }
 
 @media (max-width: 480px) {
-    .card-footer {
-        flex-direction: column; 
-        gap: 8px;
-    }
-
     .btn-cyber {
         width: 100%;
         padding: 12px;
