@@ -20,9 +20,10 @@ const allowedOrigins = [
 
 app.use(cors({
     origin: function (origin, callback) {
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
+            console.error(`ENGELLEDİĞİM ORIGIN: ${origin}`); 
             callback(new Error('CORS engeline takıldınız!'));
         }
     },
