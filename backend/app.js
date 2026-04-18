@@ -13,6 +13,8 @@ const errorHandler = require('./middlewares/error');
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 const allowedOrigins = [
     'http://localhost:5173', 
     process.env.CLIENT_URL   
