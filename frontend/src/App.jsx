@@ -31,16 +31,13 @@ function App() {
         </>
       )}
 
-      {/* isAuthenticated değilse 'landing-container' basılıyor */}
       <div className={isAuthenticated ? "content-container" : "landing-container"}>
         <Routes>
-          {/* Landing Sayfası */}
           <Route 
             path="/" 
             element={!isAuthenticated ? <Landing /> : <Navigate to="/home" />} 
           />
 
-          {/* Auth Sayfaları (Login & Signup) */}
           <Route 
             path="/login" 
             element={!isAuthenticated ? <Auth mode="login" /> : <Navigate to="/home" />} 
@@ -50,7 +47,6 @@ function App() {
             element={!isAuthenticated ? <Auth mode="signup" /> : <Navigate to="/home" />} 
           />
 
-          {/* Korumalı Rotalar */}
           <Route 
             path="/home" 
             element={isAuthenticated ? <Home /> : <Navigate to="/" />} 

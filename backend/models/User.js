@@ -42,7 +42,7 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-// Şifre şifreleme 
+// password hashing
 UserSchema.pre('save', async function(next) {
     if (!this.isModified('password')) {
         return;

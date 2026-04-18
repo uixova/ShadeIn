@@ -5,7 +5,6 @@ import App from './App.jsx';
 import { AuthProvider } from './context/AuthContext';
 import './styles/style.css';
 
-// Root elementini oluşturuyoruz
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(

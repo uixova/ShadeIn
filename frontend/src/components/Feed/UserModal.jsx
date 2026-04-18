@@ -18,7 +18,6 @@ const UserModal = ({ onClose }) => {
         email: formData.email
     };
 
-    // Eğer şifre alanına bir şey yazıldıysa onu da ekle
     if (formData.password.trim() !== '') {
         payload.password = formData.password;
     }
@@ -27,7 +26,6 @@ const UserModal = ({ onClose }) => {
 
     if (result.success) {
         setView('main');
-        // Başarı mesajı toast veya alert
     } else {
         alert(result.error || "Güncelleme başarısız.");
     }

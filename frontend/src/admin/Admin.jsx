@@ -73,7 +73,6 @@ const Admin = () => {
         }
     };
 
-    // DEĞİŞKEN BURADA BİR KEZ TANIMLANDI - TEKRAR EDEN DİĞERİNİ SİLDİM
     const filteredData = allData.filter(item => 
         activeTab === 'reports' ? !item.isDeleted : item.isDeleted
     );
@@ -136,7 +135,7 @@ const Admin = () => {
 
             {visibleCount < filteredData.length && (
                 <button className="load-more-btn" onClick={() => setVisibleCount(prev => prev + 20)}>
-                    DAHA FAZLA VERİ ÇEK...
+                    Daha Fazla...
                 </button>
             )}
         </div>

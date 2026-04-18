@@ -38,7 +38,6 @@ const Detail = () => {
         window.scrollTo(0, 0);
     }, [id]);
 
-    // Reaksiyon Gönderme İşlemi
     const handleReaction = async (type) => {
         try {
             await addReactionApi(id, type);
