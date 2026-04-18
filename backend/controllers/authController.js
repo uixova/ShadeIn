@@ -60,11 +60,16 @@ exports.login = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateDetails = asyncHandler(async (req, res, next) => {
-    const user = await User.findByIdAndUpdate(
-        req.user.id, 
-        { username: req.body.username, email: req.body.email }, 
-        { new: true, runValidators: true }
-    );
+    const user = await User.findById(req.user.id);
+
+    if (req.body.username) user.username = req.body.username;
+    if (req.body.email) user.email = req.body.email;
+    
+    if (req.body.password) {
+        user.password = req.body.password; 
+    }
+
+    await user.save(); 
 
     res.status(200).json({ success: true, data: user });
 });
