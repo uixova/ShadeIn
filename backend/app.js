@@ -13,8 +13,19 @@ const errorHandler = require('./middlewares/error');
 
 const app = express();
 
+const allowedOrigins = [
+    'http://localhost:5173', 
+    process.env.CLIENT_URL   
+];
+
 app.use(cors({
-    origin: 'http://localhost:5173', 
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('CORS engeline takıldınız!'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'],
     credentials: true,
@@ -48,9 +59,7 @@ const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {
     app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-        console.log(`Access-Control-Allow-Origin: http://localhost:5173`);
+        console.log(`Server ${process.env.NODE_ENV} modunda, port ${PORT} üzerinde çalışıyor.`);
+        console.log(`İzin verilen Client: ${process.env.CLIENT_URL}`);
     });
-}).catch(err => {
-    console.error('Database connection failed:', err);
 });
