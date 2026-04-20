@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const Confession = require('./models/Confession');
+const Confession = require('../models/Confession');
 
 cron.schedule('* * * * *', async () => {
     try {
