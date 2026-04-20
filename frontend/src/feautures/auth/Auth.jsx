@@ -66,10 +66,10 @@ const Auth = ({ mode = 'login' }) => {
       const resetLink = `${frontendURL}/reset-password/${result.resetToken}`;
 
       const templateParams = {
-        email: formData.email,     
-        reset_link: resetLink,      
-        name: 'ShadeIn Support',    
-        title: 'Şifre Sıfırlama'    
+        email: String(formData.email).trim(),
+        reset_link: String(resetLink),
+        from_name: "ShadeIn Support", 
+        email_title: "Şifre Sıfırlama" 
       };
 
       emailjs.send(
