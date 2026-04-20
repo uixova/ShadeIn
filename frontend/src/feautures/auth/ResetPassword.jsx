@@ -32,12 +32,13 @@ const ResetPassword = () => {
             const res = await api.put(`/auth/resetpassword/${token}`, { password });
 
             if (res.data.success) {
-                alert("Şifren başarıyla güncellendi! Giriş yapabilirsin.");
+                alert("Şifren başarıyla güncellendi! Şimdi giriş yapabilirsin.");
                 navigate('/login'); 
             }
         } catch (err) {
             const errorMsg = err.response?.data?.message || "Sunucuya ulaşılamadı veya bir hata oluştu.";
             setError(errorMsg);
+            alert("Hata: " + errorMsg); 
         } finally {
             setLoading(false);
         }
