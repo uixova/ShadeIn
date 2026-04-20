@@ -11,6 +11,8 @@ const authRoutes = require('./routes/authRoutes');
 const confessionRoutes = require('./routes/confessionRoutes');
 const errorHandler = require('./middlewares/error');
 
+require('./utils/scheduler');
+
 const app = express();
 
 app.set('trust proxy', 1);

@@ -13,14 +13,21 @@ const ResetPassword = () => {
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
+        e.preventDefault();
+    
+        if (loading) return;
 
-    if (password !== confirmPassword) {
-        return setError('Şifreler eşleşmiyor.');
-    }
+        if (password.length < 6) {
+            return setError('Şifre en az 6 karakter olmalı kanka.');
+        }
 
-    setLoading(true);
+        if (password !== confirmPassword) {
+            return setError('Şifreler eşleşmiyor.');
+        }
+
+        setError('');
+        setLoading(true);
+
         try {
             const res = await api.put(`/auth/resetpassword/${token}`, { password });
 
@@ -29,7 +36,8 @@ const ResetPassword = () => {
                 navigate('/login'); 
             }
         } catch (err) {
-            setError(err.response?.data?.message || "Bir hata oluştu.");
+            const errorMsg = err.response?.data?.message || "Sunucuya ulaşılamadı veya bir hata oluştu.";
+            setError(errorMsg);
         } finally {
             setLoading(false);
         }

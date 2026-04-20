@@ -171,6 +171,7 @@
     padding-top: 30px;
 }
 
+/* REAKSİYON BUTONLARI GÜNCEL HALİ */
 .btn-react {
     background: var(--bg-input);
     border: 1px solid var(--border-soft);
@@ -179,13 +180,29 @@
     border-radius: 14px;
     margin-right: 10px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
 }
 
-.btn-react:hover {
+.btn-react:hover:not(:disabled) {
     background: var(--bg-badge);
     border-color: var(--primary);
     color: var(--text-white);
+    transform: translateY(-2px);
+}
+
+/* Aktif (Seçili) Buton Efekti */
+.btn-react.active {
+    background: var(--bg-badge);
+    border-color: var(--primary);
+    color: var(--text-white);
+    box-shadow: var(--shadow-neon);
+    transform: scale(1.05);
+}
+
+/* İşlem yapılırken (loading) buton hali */
+.btn-react:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .footer-right {

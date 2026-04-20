@@ -80,38 +80,27 @@ exports.deleteMe = asyncHandler(async (req, res, next) => {
     res.status(200).json({ success: true, data: {} });
 });
 
-exports.forgotPassword = async (req, res) => {
-    try {
-        const { email } = req.body;
+exports.forgotPassword = asyncHandler(async (req, res, next) => {
+    const { email } = req.body;
 
-        const user = await User.findOne({ email });
+    const user = await User.findOne({ email });
 
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                error: 'Bu e-posta adresine ait bir kullanıcı bulunamadı'
-            });
-        }
-
-        const resetToken = crypto.randomBytes(20).toString('hex');
-        user.resetPasswordToken = resetToken;
-        user.resetPasswordExpire = Date.now() + 10 * 60 * 1000; 
-
-        await user.save({ validateBeforeSave: false });
-
-        return res.status(200).json({
-            success: true,
-            resetToken 
-        });
-
-    } catch (err) {
-        console.error("FORGOT PASSWORD HATASI:", err);
-        return res.status(500).json({
-            success: false,
-            error: 'Sunucu hatası oluştu, lütfen tekrar dene'
-        });
+    if (!user) {
+        return next(new ErrorResponse('Bu e-posta adresine ait bir hesap bulunamadı.', 404));
     }
-};
+
+    const resetToken = crypto.randomBytes(20).toString('hex');
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpire = Date.now() + 10 * 60 * 1000; 
+
+    await user.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+        success: true,
+        data: "Sıfırlama bağlantısı oluşturuldu.",
+        resetToken 
+    });
+});
 
 exports.resetPassword = asyncHandler(async (req, res, next) => {
     const resetPasswordToken = req.params.resettoken;

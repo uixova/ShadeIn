@@ -34,6 +34,11 @@ export const fetchUserProfileApi = async () => {
     return response.data.data;
 };
 
+export const forgotPasswordApi = async (email) => {
+    const response = await api.post('/auth/forgotpassword', { email });
+    return response.data;
+};
+
 // Confession
 export const fetchConfessionsApi = async (page = 1, limit = 10, category = 'Hepsi') => {
     let url = `/confessions?page=${page}&limit=${limit}&sort=-createdAt`;

@@ -14,6 +14,8 @@ const Detail = () => {
     const [relatedConfessions, setRelatedConfessions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isReportOpen, setIsReportOpen] = useState(false);
+    const [isReacting, setIsReacting] = useState(false);
+    const [userReaction, setUserReaction] = useState(null);
 
     const timeFormatted = useTime(confession?.createdAt);
 
@@ -23,6 +25,10 @@ const Detail = () => {
             try {
                 const res = await api.get(`/confessions/${id}`);
                 setConfession(res.data.data);
+
+                if(res.data.userReaction) {
+                    setUserReaction(res.data.userReaction);
+                }
 
                 const relatedRes = await api.get(`/confessions?limit=3&category=${res.data.data.category}`);
                 setRelatedConfessions(relatedRes.data.data.filter(item => item._id !== id));
@@ -39,17 +45,22 @@ const Detail = () => {
     }, [id]);
 
     const handleReaction = async (type) => {
+        if (isReacting) return;
+
+        setIsReacting(true); 
         try {
-            await addReactionApi(id, type);
-            setConfession(prev => ({
-                ...prev,
-                reactions: {
-                    ...prev.reactions,
-                    [type]: prev.reactions[type] + 1
-                }
-            }));
+            const res = await addReactionApi(id, type);
+            if (res.data && res.data.success) {
+                setConfession(prev => ({
+                    ...prev,
+                    reactions: res.data.data 
+                }));
+                setUserReaction(res.data.userReaction); 
+            }
         } catch (err) {
             console.error("Reaksiyon hatası:", err);
+        } finally {
+            setIsReacting(false); 
         }
     };
 
@@ -97,11 +108,31 @@ const Detail = () => {
 
                         <footer className="confession-footer">
                             <div className="reaction-bar">
-                                <button className="btn-react" onClick={() => handleReaction('heart')}>❤️ {confession.reactions.heart}</button>
-                                <button className="btn-react" onClick={() => handleReaction('fire')}>🔥 {confession.reactions.fire}</button>
-                                <button className="btn-react" onClick={() => handleReaction('shock')}>😮 {confession.reactions.shock}</button>
-                                <button className='btn-react' onClick={() => handleReaction('sad')}>😢 {confession.reactions.sad}</button>
-                                <button className='btn-react' onClick={() => handleReaction('clap')}>👏 {confession.reactions.clap}</button>
+                                <button 
+                                    className={`btn-react ${userReaction === 'heart' ? 'active' : ''}`} 
+                                    onClick={() => handleReaction('heart')}
+                                    style={{ opacity: isReacting ? 0.7 : 1, cursor: isReacting ? 'not-allowed' : 'pointer' }}
+                                >❤️ {confession.reactions.heart}</button>
+                                <button 
+                                    className={`btn-react ${userReaction === 'fire' ? 'active' : ''}`} 
+                                    onClick={() => handleReaction('fire')}
+                                    style={{ opacity: isReacting ? 0.7 : 1, cursor: isReacting ? 'not-allowed' : 'pointer' }}
+                                >🔥 {confession.reactions.fire}</button>
+                                <button 
+                                    className={`btn-react ${userReaction === 'shock' ? 'active' : ''}`} 
+                                    onClick={() => handleReaction('shock')}
+                                    style={{ opacity: isReacting ? 0.7 : 1, cursor: isReacting ? 'not-allowed' : 'pointer' }}
+                                >😮 {confession.reactions.shock}</button>
+                                <button 
+                                    className={`btn-react ${userReaction === 'sad' ? 'active' : ''}`} 
+                                    onClick={() => handleReaction('sad')}
+                                    style={{ opacity: isReacting ? 0.7 : 1, cursor: isReacting ? 'not-allowed' : 'pointer' }}
+                                >😢 {confession.reactions.sad}</button>
+                                <button 
+                                    className={`btn-react ${userReaction === 'clap' ? 'active' : ''}`} 
+                                    onClick={() => handleReaction('clap')}
+                                    style={{ opacity: isReacting ? 0.7 : 1, cursor: isReacting ? 'not-allowed' : 'pointer' }}
+                                >👏 {confession.reactions.clap}</button>
                             </div>
                             <div className="footer-right">
                                 <div className="views">
